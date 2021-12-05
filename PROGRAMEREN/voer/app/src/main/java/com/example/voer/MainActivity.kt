@@ -12,23 +12,27 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private var gridView: GridView? = null
     private var jetonArrayList: ArrayList<Jetons>? = null
     private var jetonAdaptor: JetonAdaptor? = null
-    private var spel : Spel? = null
+    private var spel: Spel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val imageView: ImageView? = findViewById(R.id.imageView_valies)
         val red: Int = Color.parseColor("#F53241")
-        imageView?.setColorFilter(red)
         jeton?.setColorFilter(Color.RED)
         textView.setTextColor(red)
         gridView = findViewById(R.id.grid_view)
         val button: Button = findViewById(R.id.herstart_button)
         button.setOnClickListener {
-            spel?.herstartSpel()
-            jetonAdaptor!!.notifyDataSetChanged()
+            for (jeton in jetonArrayList!!) {
+                jeton.speler = "null"
+                jetonAdaptor!!.notifyDataSetChanged()
+            }
+
+
         }
+        val kleurGeel: Button = findViewById(R.id.radioButton_geel)
+
         jetonArrayList = ArrayList()
         jetonArrayList = setJetonsList()
         jetonAdaptor = JetonAdaptor(applicationContext, jetonArrayList!!)
@@ -40,56 +44,105 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     private fun setJetonsList(): ArrayList<Jetons> {
 
-
         for (r: Int in 6 downTo 1) {
-
             for (k: Int in 1..7) {
-
-
-                jetonArrayList!!.add(Jetons(r, k, "0"))
-
-            }
-        }
-        var i = 0
-        for (r: Int in 6 downTo 1) {
-
-
-            for (k: Int in 1..7) {
-
-
-                var jeton: Jetons = jetonArrayList!![i]
-                var kolom = jeton.k
-                var rij = jeton.r
-                if ((rij % kolom) == 0) {
-                    jeton.speler = "speler"
-                } else if ((rij % kolom) > 1) {
-                    jeton.speler = "comp"
-                } else {
-                    jeton.speler = "0"
-                }
-
-                i++
+                jetonArrayList!!.add(Jetons(r, k, "null"))
             }
         }
         return jetonArrayList!!
-
 
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         var jeton: Jetons = jetonArrayList!!.get(position)
-        jeton.speler = "speler"
-        jetonArrayList!![position].speler = "speler"
-        // jetonAdaptor!!.getView(position, View(this), GridView)
-//        val cirkels: ImageView = view!!.findViewById(R.id.jeton)
-//        cirkels.setImageResource(R.drawable.black_cirkel)
-        //       jetonArrayList!!.remove(jeton)
-//        jetonArrayList
-        //       setJetonsList()
+        if (position in 35..41) {
+            jetonArrayList!![position].speler = "speler"
+        }
+
+        if (position in 28..34) {
+            if (jetonArrayList!![position + 7].speler == "null") {
+                jetonArrayList!![position + 7].speler = "speler"
+            } else
+                jetonArrayList!![position].speler = "speler"
+        }
+        if (position in 21..27) {
+            if ((jetonArrayList!![position + 7].speler == "null") && (jetonArrayList!![position + 14].speler == "null")) {
+                jetonArrayList!![position + 14].speler = "speler"
+            } else
+                if (jetonArrayList!![position + 7].speler == "null") {
+                    jetonArrayList!![position + 7].speler = "speler"
+                } else
+                    jetonArrayList!![position].speler = "speler"
+        }
+        if (position in 14..20) {
+            if ((jetonArrayList!![position + 7].speler == "null") &&
+                (jetonArrayList!![position + 14].speler == "null") &&
+                (jetonArrayList!![position + 21].speler == "null")
+            ) {
+
+                jetonArrayList!![position + 21].speler = "speler"
+            } else
+                if ((jetonArrayList!![position + 7].speler == "null") && (jetonArrayList!![position + 14].speler == "null")) {
+                    jetonArrayList!![position + 14].speler = "speler"
+                } else
+                    if (jetonArrayList!![position + 7].speler == "null") {
+                        jetonArrayList!![position + 7].speler = "speler"
+                    } else
+                        jetonArrayList!![position].speler = "speler"
+        }
+        if (position in 7..13) {
+            if ((jetonArrayList!![position + 7].speler == "null") &&
+                (jetonArrayList!![position + 14].speler == "null") &&
+                (jetonArrayList!![position + 21].speler == "null") &&
+                (jetonArrayList!![position + 28].speler == "null")
+            ) {
+
+                jetonArrayList!![position + 28].speler = "speler"
+            } else
+                if ((jetonArrayList!![position + 7].speler == "null") &&
+                    (jetonArrayList!![position + 14].speler == "null") &&
+                    (jetonArrayList!![position + 21].speler == "null")
+                ) {
+
+                    jetonArrayList!![position + 21].speler = "speler"
+                } else
+                    if ((jetonArrayList!![position + 7].speler == "null") && (jetonArrayList!![position + 14].speler == "null")) {
+                        jetonArrayList!![position + 14].speler = "speler"
+                    } else
+                        if (jetonArrayList!![position + 7].speler == "null") {
+                            jetonArrayList!![position + 7].speler = "speler"
+                        } else
+                            jetonArrayList!![position].speler = "speler"
+        }
+        if (position in 0..6) {
+            if ((jetonArrayList!![position + 7].speler == "null") &&
+                (jetonArrayList!![position + 14].speler == "null") &&
+                (jetonArrayList!![position + 21].speler == "null") &&
+                (jetonArrayList!![position + 28].speler == "null") &&
+                (jetonArrayList!![position + 35].speler == "null")
+            ) {
+
+                jetonArrayList!![position + 35].speler = "speler"
+            } else
+                if ((jetonArrayList!![position + 7].speler == "null") &&
+                    (jetonArrayList!![position + 14].speler == "null") &&
+                    (jetonArrayList!![position + 21].speler == "null")
+                ) {
+
+                    jetonArrayList!![position + 21].speler = "speler"
+                } else
+                    if ((jetonArrayList!![position + 7].speler == "null") && (jetonArrayList!![position + 14].speler == "null")) {
+                        jetonArrayList!![position + 14].speler = "speler"
+                    } else
+                        if (jetonArrayList!![position + 7].speler == "null") {
+                            jetonArrayList!![position + 7].speler = "speler"
+                        } else
+                            jetonArrayList!![position].speler = "speler"
+        }
+
         jetonAdaptor!!.notifyDataSetChanged()
-        var tekstr = jetonArrayList!![0].r.toString()
-        var tekstk = jetonArrayList!![0].k.toString()
+
         Toast.makeText(applicationContext, "${jeton.speler}", Toast.LENGTH_LONG).show()
-        //Toast.makeText(applicationContext,"r=$tekstr"+"k=$tekstk",Toast.LENGTH_LONG).show()
+
     }
 }

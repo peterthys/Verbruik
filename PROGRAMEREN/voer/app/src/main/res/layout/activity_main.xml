@@ -5,21 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="6dp"
     tools:context=".MainActivity">
 
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="Welkom bij Vier op een rij ! "
+        android:text="Welkom bij Vier op een rij ! \nKies je kleur  \nKies wie begint"
+        app:layout_constraintBottom_toTopOf="@+id/button_ik-begin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/radioButton-geel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        android:text="Ik speel met geel"
+        app:layout_constraintBottom_toTopOf="@+id/button-computer-begint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/radioButton-rood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Ik speel met rood"
+        app:layout_constraintBottom_toTopOf="@+id/button-computer-begint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/button_ik-begin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:text="IK  BEGIN"
+        app:layout_constraintBottom_toTopOf="@+id/herstart_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton-geel" />
+
+    <Button
+        android:id="@+id/button-computer-begint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="15dp"
+        android:text="COMPUTER BEGINT"
+        app:layout_constraintBottom_toTopOf="@+id/herstart_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton-rood" />
 
     <Button
         android:id="@+id/herstart_button"
@@ -32,13 +76,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/button_ik-begin" />
 
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/herstart_button"
         android:background="@color/blue"
         android:columnWidth="45dp"
         android:numColumns="7"
@@ -51,16 +95,7 @@
 
     </GridView>
 
-    <ImageView
-        android:id="@+id/imageView_valies"
-        android:layout_width="27dp"
-        android:layout_height="126dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:srcCompat="@drawable/valies"
-        tools:layout_editor_absoluteY="200dp" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

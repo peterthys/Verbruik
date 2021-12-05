@@ -40,21 +40,15 @@ class JetonAdaptor(var context: Context, var JetonArrayList: ArrayList<Jetons>) 
             cirkels.setColorFilter(Color.RED)
         } else if (jeton.speler == "computer") {
             cirkels.setColorFilter(Color.YELLOW)
-        }
-        else
+        } else
             cirkels.setColorFilter(Color.WHITE)
 
         cirkels.setImageResource(R.drawable.black_cirkel)
 
 
-        //      tekst.setText("${rij},${kolom},${jeton.speler}")
+        tekst.setText("${rij},${kolom},${jeton.speler}")
 
-        for (i in 0..41) {
-
-
-            tekst.setText("${rij},${kolom},${jeton.speler},$i")
-        }
-            return view
+        return view
 
 
     }
