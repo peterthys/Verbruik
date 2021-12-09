@@ -8,8 +8,10 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 
+
 class JetonAdaptor(var context: Context, var JetonArrayList: ArrayList<Jetons>) : BaseAdapter() {
 
+var kleurSpeler : String = "null"
 
     override fun getCount(): Int {
         return JetonArrayList.size
@@ -24,7 +26,10 @@ class JetonAdaptor(var context: Context, var JetonArrayList: ArrayList<Jetons>) 
         return position.toLong()
     }
 
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+
+
         val view: View = View.inflate(context, R.layout.jeton_ontwerp, null)
 
         val cirkels: ImageView = view.findViewById(R.id.jeton)
@@ -35,10 +40,11 @@ class JetonAdaptor(var context: Context, var JetonArrayList: ArrayList<Jetons>) 
 
         val rij: Int = jeton.r
         val kolom: Int = jeton.k
+        val kleur: String = jeton.kleur
 
-        if (jeton.speler == "speler") {
+        if (jeton.kleur == "rood") {
             cirkels.setColorFilter(Color.RED)
-        } else if (jeton.speler == "computer") {
+        } else if (jeton.kleur == "geel") {
             cirkels.setColorFilter(Color.YELLOW)
         } else
             cirkels.setColorFilter(Color.WHITE)
@@ -46,7 +52,7 @@ class JetonAdaptor(var context: Context, var JetonArrayList: ArrayList<Jetons>) 
         cirkels.setImageResource(R.drawable.black_cirkel)
 
 
-        tekst.setText("${rij},${kolom},${jeton.speler}")
+       tekst.setText("${rij},${kolom},${jeton.speler}")
 
         return view
 

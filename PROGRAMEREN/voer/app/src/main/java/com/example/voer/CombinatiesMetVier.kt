@@ -1,5 +1,7 @@
 package com.example.voer
 
+import android.content.Intent
+
 class CombinatiesMetVier() {
     lateinit var jeton: Jetons
     var r = jeton.r
