@@ -2,7 +2,7 @@ package com.example.voer
 
 import android.widget.ImageView
 
-class Jetons(
+class Jeton(
 
     var r: Int = 0,
     var k: Int = 0,
