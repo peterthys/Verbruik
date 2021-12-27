@@ -40,11 +40,11 @@ var kleurSpeler : String = "null"
 
         val rij: Int = jeton.r
         val kolom: Int = jeton.k
-        val kleur: String = jeton.kleur
+        val kleur: String = jeton.color
 
-        if (jeton.kleur == "red") {
+        if (jeton.color == "red") {
             cirkels.setColorFilter(Color.RED)
-        } else if (jeton.kleur == "yellow") {
+        } else if (jeton.color == "yellow") {
             cirkels.setColorFilter(Color.YELLOW)
         } else
             cirkels.setColorFilter(Color.WHITE)
@@ -52,7 +52,7 @@ var kleurSpeler : String = "null"
         cirkels.setImageResource(R.drawable.black_cirkel)
 
 
-       tekst.setText("${rij},${kolom},${jeton.speler}")
+       tekst.setText("${rij},${kolom},${jeton.player}")
 
         return view
 
