@@ -77,9 +77,4 @@ dependencies {
 
 
 }
-compileKotlin {
-    kotlinOptions {
-        languageVersion = "1.4"
-    }
-}
 

@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         jetonAdaptor = JetonAdaptor(applicationContext, jetonArrayList!!)
         gridView?.adapter = jetonAdaptor
         gridView?.onItemClickListener = this
-        spel = Spel(jetonArrayList!!,combination4List!!)
+        spel = Spel(jetonArrayList!!, combination4List!!)
 
         startSpel()
 
@@ -73,8 +73,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         textView.setTextColor(Color.BLACK)
         textView.setText("Welkom bij Vier op een rij !\nKies de kleur waarmee je wil spelen.")
 
-        var x = spel?.controle4Horizontaal2()
-        Toast.makeText(applicationContext,"Size = $x",Toast.LENGTH_LONG).show()
 
         ButtonGeel.setOnClickListener {
             colorPlayer = "yellow"
@@ -109,11 +107,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             ButtonRood.setVisibility(View.GONE)
             ButtonIkBegin.setVisibility(View.GONE)
             ButtonComputerBegint.setVisibility(View.GONE)
-            textView.setText(
-                "\nGoed, ik begin !"
-            )
             eersteZetJetonComputer()
-            jetonAdaptor!!.notifyDataSetChanged()
         }
         buttonHerstart.setOnClickListener {
             for (jeton in jetonArrayList!!) {
@@ -123,7 +117,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 ButtonRood.setVisibility(View.VISIBLE)
                 ButtonIkBegin.setVisibility(View.GONE)
                 ButtonComputerBegint.setVisibility(View.GONE)
-
                 colorPlayer = "null"
                 colorComputer = "null"
                 aanZet = "computer"
@@ -141,20 +134,20 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         if (aanZet == "computer") {
             Toast.makeText(applicationContext, "Je bent niet aan zet !", Toast.LENGTH_LONG).show()
         } else {
-            if (jeton.color == "red" || jeton.color == "yellow") {
-                Toast.makeText(
-                    applicationContext,
-                    "Jeton is reeds bezet !\nMaak een andere keuze.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                wrongChoice = true
-                waitForCorrectChoice(wrongChoice)
-            } else
-               // spel = Spel(jetonArrayList!!,combination4List!!)
-            spel?.setCorrectPlace(jeton, position, colorPlayer)
-
-            aanZet = "computer"
-            jetonAdaptor!!.notifyDataSetChanged()
+            controlAllreadyChoosen(jeton, position)
+//            if (jeton.color == "red" || jeton.color == "yellow") {
+//                Toast.makeText(
+//                    applicationContext,
+//                    "Jeton is reeds bezet !\nMaak een andere keuze.",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+////                wrongChoice = true
+////                waitForCorrectChoice(wrongChoice)
+//            } else
+//                spel?.setCorrectPlace(jeton, position, colorPlayer)
+//
+//         //   aanZet = "computer"
+//            jetonAdaptor!!.notifyDataSetChanged()
 
 
         }
@@ -178,6 +171,24 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 Toast.makeText(applicationContext, "$x", Toast.LENGTH_SHORT).show()
 
         volgendeZetComputer()
+
+    }
+
+    fun controlAllreadyChoosen(jeton: Jeton, position: Int) {
+        val position: Int = position
+        if (jeton.color == "red" || jeton.color == "yellow") {
+            Toast.makeText(
+                applicationContext,
+                "Jeton is reeds bezet !\nMaak een andere keuze.",
+                Toast.LENGTH_SHORT
+            ).show()
+            wrongChoice = true
+            waitForCorrectChoice(wrongChoice)
+        } else
+            spel?.setCorrectPlace(jeton, position, colorPlayer)
+
+        //   aanZet = "computer"
+        jetonAdaptor!!.notifyDataSetChanged()
 
     }
 
