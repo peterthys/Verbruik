@@ -46,6 +46,8 @@ var kleurSpeler : String = "null"
             cirkels.setColorFilter(Color.RED)
         } else if (jeton.color == "yellow") {
             cirkels.setColorFilter(Color.YELLOW)
+        } else if (jeton.color == "blue") {
+            cirkels.setColorFilter(Color.BLUE)
         } else
             cirkels.setColorFilter(Color.WHITE)
 

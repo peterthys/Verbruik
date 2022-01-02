@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     var colorPlayer: String = "null"
     var colorComputer: String = "null"
     var aanZet: String = "computer"
-    var wrongChoice = false
+    //  var wrongChoice = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,12 +49,52 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         val cijfers1: List<Int> = listOf(
             0, 1, 2, 3, 7, 8, 9, 10, 14, 15, 16, 17, 21, 22, 23, 24, 28, 29, 30, 31, 35, 36, 37, 38
         )
+        val cijfers2: List<Int> = listOf(
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+        )
+        val cijfers3: List<Int> = listOf(
+            3, 4, 5, 6, 10, 11, 12, 13, 17, 18, 19, 20
+        )
+        val cijfers4: List<Int> = listOf(
+            0, 1, 2, 3, 7, 8, 9, 10, 14, 15, 16, 17
+        )
+        //Vier horizontaal
         for (i in cijfers1) {
             val comb4 = Combinations4(
                 jetonArrayList!![i],
                 jetonArrayList!![i + 1],
                 jetonArrayList!![i + 2],
                 jetonArrayList!![i + 3]
+            )
+            combination4List!!.add(comb4)
+        }
+        //Vier vertikaal
+        for (i in cijfers2) {
+            val comb4 = Combinations4(
+                jetonArrayList!![i],
+                jetonArrayList!![i + 7],
+                jetonArrayList!![i + 14],
+                jetonArrayList!![i + 21]
+            )
+            combination4List!!.add(comb4)
+        }
+        //Vier diagonaal stijgend
+        for (i in cijfers3) {
+            val comb4 = Combinations4(
+                jetonArrayList!![i],
+                jetonArrayList!![i + 6],
+                jetonArrayList!![i + 12],
+                jetonArrayList!![i + 18]
+            )
+            combination4List!!.add(comb4)
+        }
+        //Vier diagonaal dalend
+        for (i in cijfers4) {
+            val comb4 = Combinations4(
+                jetonArrayList!![i],
+                jetonArrayList!![i + 8],
+                jetonArrayList!![i + 16],
+                jetonArrayList!![i + 24]
             )
             combination4List!!.add(comb4)
         }
@@ -135,72 +175,59 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             Toast.makeText(applicationContext, "Je bent niet aan zet !", Toast.LENGTH_LONG).show()
         } else {
             controlAllreadyChoosen(jeton, position)
-//            if (jeton.color == "red" || jeton.color == "yellow") {
-//                Toast.makeText(
-//                    applicationContext,
-//                    "Jeton is reeds bezet !\nMaak een andere keuze.",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-////                wrongChoice = true
-////                waitForCorrectChoice(wrongChoice)
-//            } else
-//                spel?.setCorrectPlace(jeton, position, colorPlayer)
-//
-//         //   aanZet = "computer"
-//            jetonAdaptor!!.notifyDataSetChanged()
-
 
         }
+        var x = spel?.control4OnARow()
 
-
-        var x = spel?.controle4Horizontaal()
-
-        if (x == "speler") {
+        if (x == "player") {
             textView.setTextColor(Color.RED)
             textView.setText("\n\n Jij hebt gewonnen!\n Proficiat")
             aanZet = "computer"
-            Toast.makeText(applicationContext, "$x", Toast.LENGTH_LONG).show()
         } else
             if (x == "computer") {
                 textView.setTextColor(Color.RED)
-                textView.setText("\n\n Comuter heeft gewonnen!")
+                textView.setText("\n\n Computer heeft gewonnen!")
                 aanZet = "computer"
-                Toast.makeText(applicationContext, "$x", Toast.LENGTH_SHORT).show()
 
             } else
                 Toast.makeText(applicationContext, "$x", Toast.LENGTH_SHORT).show()
 
-        volgendeZetComputer()
+        nextJetonComputer()
 
     }
 
     fun controlAllreadyChoosen(jeton: Jeton, position: Int) {
-        val position: Int = position
+
         if (jeton.color == "red" || jeton.color == "yellow") {
             Toast.makeText(
                 applicationContext,
                 "Jeton is reeds bezet !\nMaak een andere keuze.",
                 Toast.LENGTH_SHORT
             ).show()
-            wrongChoice = true
-            waitForCorrectChoice(wrongChoice)
-        } else
-            spel?.setCorrectPlace(jeton, position, colorPlayer)
 
-        //   aanZet = "computer"
+        } else
+            Toast.makeText(
+                applicationContext,
+                "kiekeboe !",
+                Toast.LENGTH_SHORT
+            ).show()
+        spel?.setCorrectPlace(jeton, position, colorPlayer)
+
+        aanZet = "computer"
+
         jetonAdaptor!!.notifyDataSetChanged()
 
     }
 
-    fun waitForCorrectChoice(r: Boolean) {
-        if (r == true) {
-            wrongChoice = false
-            startSpel()
-        } else
-            wrongChoice = false
-        volgendeZetComputer()
-        Toast.makeText(applicationContext, "opnieuw thuis", Toast.LENGTH_LONG).show()
-    }
+//    fun waitForCorrectChoice(r: Boolean) {
+//        if (r == true) {
+//            wrongChoice = false
+//            startSpel()
+//        } else
+//            wrongChoice = false
+//        volgendeZetComputer()
+//        Toast.makeText(applicationContext, "opnieuw thuis", Toast.LENGTH_LONG).show()
+//    }
 
     fun eersteZetJetonComputer() {
         val randomGetal: Int = (3..5).random()
@@ -211,23 +238,25 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             }
         }
         textView.setText("\n\njouw beurt")
-        aanZet = "speler"
+        aanZet = "player"
         jetonAdaptor!!.notifyDataSetChanged()
     }
 
     fun setJetonPlayer() {}
 
-    fun volgendeZetComputer() {
-        val jetonComputer = spel?.controle3Horizontaal()
-        if (jetonComputer == jetonArrayList!![0]) {
-            Toast.makeText(applicationContext, "Hoi", Toast.LENGTH_LONG).show()
-            spel?.controle2Horizontaal()
-        } else
+    fun nextJetonComputer() {
+        val jetonComputer = spel?.control3OnARow()
+        if (jetonComputer != jetonArrayList!![0]) {
             jetonComputer?.player = "computer"
-        jetonComputer?.color = colorComputer
-        jetonAdaptor!!.notifyDataSetChanged()
+            jetonComputer?.color = colorComputer
+            aanZet = "player"
+            jetonAdaptor!!.notifyDataSetChanged()
+        } else {
+            Toast.makeText(applicationContext, "Hoi", Toast.LENGTH_LONG).show()
+            spel?.control2OnARow()
+
+        }
+
 
     }
-
-
 }
