@@ -1,3 +1,5 @@
+@file:Suppress("ControlFlowWithEmptyBody")
+
 package com.example.voer
 
 import android.graphics.Color
@@ -9,27 +11,25 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private var gridView: GridView? = null
-    private var jetonArrayList: ArrayList<Jeton>? = null
-    private var combination4List: ArrayList<Combinations4>? = null
+    private var jetonArrayList: ArrayList<Jeton>? = ArrayList()
+    private var combination4List: ArrayList<Combinations4>? = ArrayList()
     private var jetonAdaptor: JetonAdaptor? = null
-    var spel: Spel? = null
-    var colorPlayer: String = "null"
-    var colorComputer: String = "null"
-    var aanZet: String = "computer"
-    //  var wrongChoice = false
+    private var gameCal: GameCalculator? = null
+    private var colorPlayer: String = "null"
+    private var colorComputer: String = "null"
+    private var aanZet: String = "computer"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         gridView = findViewById(R.id.grid_view)
-        jetonArrayList = ArrayList()
         jetonArrayList = setJetonsList()
         combination4List = ArrayList()
         combination4List = setCombinatieList()
         jetonAdaptor = JetonAdaptor(applicationContext, jetonArrayList!!)
         gridView?.adapter = jetonAdaptor
         gridView?.onItemClickListener = this
-        spel = Spel(jetonArrayList!!, combination4List!!)
+        gameCal = GameCalculator(jetonArrayList!!, combination4List!!)
 
         startSpel()
 
@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         return combination4List!!
     }
 
+
     fun startSpel() {
 
         val buttonHerstart: Button = findViewById(R.id.herstart_button)
@@ -135,7 +136,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         }
 
         ButtonIkBegin.setOnClickListener {
-            textView.setText("\nPlaats je jeton\n Veel succes !")
+            textView.setText("\nPlaats je jeton")
             ButtonGeel.setVisibility(View.GONE)
             ButtonRood.setVisibility(View.GONE)
             ButtonIkBegin.setVisibility(View.GONE)
@@ -173,27 +174,25 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         val jeton: Jeton = jetonArrayList!!.get(position)
         if (aanZet == "computer") {
             Toast.makeText(applicationContext, "Je bent niet aan zet !", Toast.LENGTH_LONG).show()
-        } else {
+        } else
             controlAllreadyChoosen(jeton, position)
-
-        }
-        var x = spel?.control4OnARow()
-
-        if (x == "player") {
+        val voer: String? = gameCal?.control4OnARow()
+        if (voer == "player") {
             textView.setTextColor(Color.RED)
             textView.setText("\n\n Jij hebt gewonnen!\n Proficiat")
             aanZet = "computer"
-        } else
-            if (x == "computer") {
-                textView.setTextColor(Color.RED)
-                textView.setText("\n\n Computer heeft gewonnen!")
-                aanZet = "computer"
-
-            } else
-                Toast.makeText(applicationContext, "$x", Toast.LENGTH_SHORT).show()
-
+        }
         nextJetonComputer()
 
+        aanZet = "player"
+
+        val voer2 = gameCal?.control4OnARow()
+
+        if (voer2 == "computer") {
+            textView.setTextColor(Color.RED)
+            textView.setText("\n\n Computer heeft gewonnen!")
+            aanZet = "computer"
+        }
     }
 
     fun controlAllreadyChoosen(jeton: Jeton, position: Int) {
@@ -205,58 +204,59 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 Toast.LENGTH_SHORT
             ).show()
 
-        } else
-            Toast.makeText(
-                applicationContext,
-                "kiekeboe !",
-                Toast.LENGTH_SHORT
-            ).show()
-        spel?.setCorrectPlace(jeton, position, colorPlayer)
-
-        aanZet = "computer"
-
-        jetonAdaptor!!.notifyDataSetChanged()
+        } else {
+            gameCal?.setCorrectPlace(jeton, position, colorPlayer)
+            jetonAdaptor!!.notifyDataSetChanged()
+        }
 
     }
 
-//    fun waitForCorrectChoice(r: Boolean) {
-//        if (r == true) {
-//            wrongChoice = false
-//            startSpel()
-//        } else
-//            wrongChoice = false
-//        volgendeZetComputer()
-//        Toast.makeText(applicationContext, "opnieuw thuis", Toast.LENGTH_LONG).show()
-//    }
-
-    fun eersteZetJetonComputer() {
+    fun eersteZetJetonComputer(): Jeton {
         val randomGetal: Int = (3..5).random()
-        for (jeton: Jeton in jetonArrayList!!) {
-            if (jeton.r == 1 && jeton.k == randomGetal) {
-                jeton.color = colorComputer
-                jeton.player = "computer"
-            }
-        }
+        val firstJeton = jetonArrayList!![34 + randomGetal]
+        firstJeton.color = colorComputer
+        firstJeton.player = "computer"
         textView.setText("\n\njouw beurt")
         aanZet = "player"
         jetonAdaptor!!.notifyDataSetChanged()
+        return firstJeton
+
     }
 
-    fun setJetonPlayer() {}
-
     fun nextJetonComputer() {
-        val jetonComputer = spel?.control3OnARow()
-        if (jetonComputer != jetonArrayList!![0]) {
-            jetonComputer?.player = "computer"
-            jetonComputer?.color = colorComputer
+        var freeJetonsList: ArrayList<Jeton> = ArrayList()
+        var jetonComputer = gameCal?.control3OnARow()
+        if (jetonComputer?.player == "null") {
+            jetonComputer.player = "computer"
+            jetonComputer.color = colorComputer
+            jetonArrayList!![0].player = "null"
             aanZet = "player"
             jetonAdaptor!!.notifyDataSetChanged()
         } else {
-            Toast.makeText(applicationContext, "Hoi", Toast.LENGTH_LONG).show()
-            spel?.control2OnARow()
+            jetonComputer = gameCal?.control2OnARow()
+            if (jetonComputer?.player == "null") {
+                jetonComputer.player = "computer"
+                jetonComputer.color = colorComputer
+                jetonArrayList!![0].player = "null"
+                aanZet = "player"
+                jetonAdaptor!!.notifyDataSetChanged()
+            } else {
+
+                for (jeton in jetonArrayList!!) {
+                    if (jeton.color != "white") {
+                        freeJetonsList.add(jeton)
+                    }
+                }
+                jetonComputer = (freeJetonsList).random()
+                jetonComputer.player = "computer"
+                jetonComputer.color = colorComputer
+                jetonAdaptor!!.notifyDataSetChanged()
+                freeJetonsList.removeAll(freeJetonsList)
+
+
+            }
 
         }
-
 
     }
 }
