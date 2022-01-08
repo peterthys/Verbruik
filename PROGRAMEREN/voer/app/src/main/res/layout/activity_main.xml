@@ -1,86 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="6dp"
-    android:layout_marginTop="10dp"
-    tools:context=".MainActivity">
+    android:layout_centerHorizontal="true"
+    android:gravity="center"
+    android:orientation="vertical">
 
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Welkom bij Vier op een rij !\nKies de kleur waarmee je wil spelen."
-        app:layout_constraintBottom_toTopOf="@+id/button_ik-begin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="10dp"
+         />
 
-    <Button
-        android:id="@+id/radioButton_geel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/yellow"
-        android:text="Ik speel met geel"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/button-computer-begint"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
-    <Button
-        android:id="@+id/radioButton-rood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Ik speel met rood"
-        android:backgroundTint="@color/red"
-        app:layout_constraintBottom_toTopOf="@+id/button-computer-begint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <Button
+            android:id="@+id/radioButton_geel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/yellow"
+            android:text="Ik speel met geel"
+            android:textColor="@color/black" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/radioButton-rood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red"
+            android:text="Ik speel met rood" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="3">
     <Button
         android:id="@+id/button_ik-begin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
-        android:text="IK  BEGIN"
-        app:layout_constraintBottom_toTopOf="@+id/herstart_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton_geel" />
+        android:text="IK  BEGIN" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
     <Button
         android:id="@+id/button-computer-begint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="15dp"
-        android:text="COMPUTER BEGINT"
-        app:layout_constraintBottom_toTopOf="@+id/herstart_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton-rood" />
+        android:layout_weight="2"
+        android:layout_marginTop="8dp"
+        android:text="COMPUTER BEGINT" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/herstart_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
-        android:layout_marginTop="36dp"
-        android:gravity="center_horizontal"
-        android:text="HERSTART"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_ik-begin" />
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="HERSTART" />
 
     <GridView
         android:id="@+id/grid_view"
@@ -90,16 +96,11 @@
         android:background="@color/blue"
         android:columnWidth="45dp"
         android:numColumns="7"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
+        android:padding="10dp">
 
 
     </GridView>
 
+</LinearLayout>
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
