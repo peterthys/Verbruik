@@ -6,7 +6,7 @@ class GameCalculator(
 ) {
 
 
-    fun setCorrectPlace(jeton: Jeton, position: Int): Jeton {
+    fun setCorrectPlace(position: Int): Jeton {
 
 
         when (position) {
@@ -134,7 +134,7 @@ class GameCalculator(
                         (comb.jeton2.player == comb.jeton3.player) &&
                         (comb.jeton1.player == "computer") &&
                         (comb.jeton4.player == "null") -> {
-                    val jetonComputer = setCorrectPlace(comb.jeton4, comb.jeton4.position)
+                    val jetonComputer = setCorrectPlace(comb.jeton4.position)
                     while (jetonComputer == comb.jeton4) {
                         return comb.jeton4
                     }
@@ -143,7 +143,7 @@ class GameCalculator(
                         (comb.jeton3.player == comb.jeton4.player) &&
                         (comb.jeton2.player == "computer") &&
                         (comb.jeton1.player == "null") -> {
-                    val jetonComputer = setCorrectPlace(comb.jeton1, comb.jeton1.position)
+                    val jetonComputer = setCorrectPlace(comb.jeton1.position)
                     while (jetonComputer == comb.jeton1) {
                         return comb.jeton1
                     }
@@ -152,7 +152,7 @@ class GameCalculator(
                         (comb.jeton2.player == comb.jeton4.player) &&
                         (comb.jeton1.player == "computer") &&
                         (comb.jeton3.player == "null") -> {
-                    val jetonComputer = setCorrectPlace(comb.jeton4, comb.jeton4.position)
+                    val jetonComputer = setCorrectPlace(comb.jeton4.position)
                     while (jetonComputer == comb.jeton4) {
                         return comb.jeton3
                     }
@@ -161,7 +161,7 @@ class GameCalculator(
                         (comb.jeton3.player == comb.jeton4.player) &&
                         (comb.jeton1.player == "computer") &&
                         (comb.jeton2.player == "null") -> {
-                    val jetonComputer = setCorrectPlace(comb.jeton2, comb.jeton2.position)
+                    val jetonComputer = setCorrectPlace(comb.jeton2.position)
                     while (jetonComputer == comb.jeton2) {
                         return comb.jeton2
                     }
@@ -175,7 +175,7 @@ class GameCalculator(
                         (comb.jeton2.player == comb.jeton3.player) &&
                         (comb.jeton1.player == "player") &&
                         (comb.jeton4.player == "null") -> {
-                    val jetonComputer = setCorrectPlace(comb.jeton4, comb.jeton4.position)
+                    val jetonComputer = setCorrectPlace(comb.jeton4.position)
                     while (jetonComputer == comb.jeton4) {
                         return comb.jeton4
                     }
@@ -184,7 +184,7 @@ class GameCalculator(
                         (comb.jeton3.player == comb.jeton4.player) &&
                         (comb.jeton2.player == "player") &&
                         (comb.jeton1.player == "null") -> {
-                    val jetonComputer = setCorrectPlace(comb.jeton1, comb.jeton1.position)
+                    val jetonComputer = setCorrectPlace(comb.jeton1.position)
                     while (jetonComputer == comb.jeton1) {
                         return comb.jeton1
                     }
@@ -193,7 +193,7 @@ class GameCalculator(
                         (comb.jeton2.player == comb.jeton4.player) &&
                         (comb.jeton1.player == "player") &&
                         (comb.jeton3.player == "null") -> {
-                    val jetonComputer = setCorrectPlace(comb.jeton3, comb.jeton3.position)
+                    val jetonComputer = setCorrectPlace(comb.jeton3.position)
                     while (jetonComputer == comb.jeton3) {
                         return comb.jeton3
                     }
@@ -202,7 +202,7 @@ class GameCalculator(
                         (comb.jeton3.player == comb.jeton4.player) &&
                         (comb.jeton1.player == "player") &&
                         (comb.jeton2.player == "null") -> {
-                    val jetonComputer = setCorrectPlace(comb.jeton2, comb.jeton2.position)
+                    val jetonComputer = setCorrectPlace(comb.jeton2.position)
                     while (jetonComputer == comb.jeton2) {
                         return comb.jeton2
                     }
@@ -224,7 +224,7 @@ class GameCalculator(
                         ((comb.jeton1.player == "null") && (comb.jeton4.player == "null")) -> {
                     val choice = listOf(comb.jeton1, comb.jeton4)
                     val choiceComputer = choice.random()
-                    val jetonComputer = setCorrectPlace(choiceComputer, choiceComputer.position)
+                    val jetonComputer = setCorrectPlace(choiceComputer.position)
                     while (jetonComputer == choiceComputer) {
                         return jetonComputer
                     }
@@ -234,7 +234,7 @@ class GameCalculator(
                         ((comb.jeton2.player == "null") && (comb.jeton3.player == "null")) -> {
                     val choice = listOf(comb.jeton2, comb.jeton3)
                     val choiceComputer = choice.random()
-                    val jetonComputer = setCorrectPlace(choiceComputer, choiceComputer.position)
+                    val jetonComputer = setCorrectPlace(choiceComputer.position)
                     while (jetonComputer == choiceComputer) {
                         return jetonComputer
                     }
@@ -244,7 +244,7 @@ class GameCalculator(
                         ((comb.jeton2.player == "null") && (comb.jeton4.player == "null")) -> {
                     val choice = listOf(comb.jeton2, comb.jeton4)
                     val choiceComputer = choice.random()
-                    val jetonComputer = setCorrectPlace(choiceComputer, choiceComputer.position)
+                    val jetonComputer = setCorrectPlace(choiceComputer.position)
                     while (jetonComputer == choiceComputer) {
                         return jetonComputer
                     }
@@ -254,7 +254,7 @@ class GameCalculator(
                         ((comb.jeton1.player == "null") && (comb.jeton3.player == "null")) -> {
                     val choice = listOf(comb.jeton1, comb.jeton3)
                     val choiceComputer = choice.random()
-                    val jetonComputer = setCorrectPlace(choiceComputer, choiceComputer.position)
+                    val jetonComputer = setCorrectPlace(choiceComputer.position)
                     while (jetonComputer == choiceComputer) {
                         return jetonComputer
                     }

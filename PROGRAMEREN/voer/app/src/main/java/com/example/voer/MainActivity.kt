@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.voer.DataBase.JetonViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
@@ -18,10 +20,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private var colorPlayer: String = "null"
     private var colorComputer: String = "null"
     private var aanZet: String = "computer"
+    private lateinit var mJetonViewModel : JetonViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mJetonViewModel = ViewModelProvider(this).get(JetonViewModel::class.java)
         gridView = findViewById(R.id.grid_view)
         jetonArrayList = ArrayList()
         jetonArrayList = setJetonsList()
@@ -41,7 +45,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         for (r: Int in 6 downTo 1) {
             var position = 0
             for (k: Int in 1..7) {
-                jetonArrayList?.add(Jeton(r, k, "null", "null", position))
+                jetonArrayList?.add(Jeton(r, k, "null", "null", position,0))
+                insertJetonToDatabase(Jeton(r, k, "null", "null", position,0))
                 position++
             }
         }
@@ -151,7 +156,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             ButtonRood.setVisibility(View.GONE)
             ButtonIkBegin.setVisibility(View.GONE)
             ButtonComputerBegint.setVisibility(View.GONE)
-            eersteZetJetonComputer()
+            firstJetonComputer()
         }
         buttonHerstart.setOnClickListener {
             for (jeton in jetonArrayList!!) {
@@ -161,8 +166,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 ButtonRood.setVisibility(View.VISIBLE)
                 ButtonIkBegin.setVisibility(View.GONE)
                 ButtonComputerBegint.setVisibility(View.GONE)
-                colorPlayer = "null"
-                colorComputer = "null"
+                setJetonsList()
+                setCombinatieList()
                 aanZet = "computer"
                 startSpel()
                 jetonAdaptor.notifyDataSetChanged()
@@ -208,21 +213,23 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             ).show()
 
         } else {
-            val jetonPlayer = gameCal.setCorrectPlace(jeton, position)
+            val jetonPlayer = gameCal.setCorrectPlace(position)
             jetonPlayer.color = colorPlayer
             jetonPlayer.player = "player"
+            updateJetonToDatabase(jetonPlayer)
             jetonAdaptor.notifyDataSetChanged()
         }
 
     }
 
-    fun eersteZetJetonComputer(): Jeton {
+    fun firstJetonComputer(): Jeton {
         val randomGetal: Int = (3..5).random()
         val firstJeton = jetonArrayList!![34 + randomGetal]
         firstJeton.color = colorComputer
         firstJeton.player = "computer"
         textView.setText("\n\njouw beurt")
         aanZet = "player"
+        updateJetonToDatabase(firstJeton)
         jetonAdaptor.notifyDataSetChanged()
         return firstJeton
 
@@ -236,6 +243,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             jetonComputer.color = colorComputer
             jetonArrayList!![0].player = "null"
             aanZet = "player"
+            updateJetonToDatabase(jetonComputer)
             jetonAdaptor.notifyDataSetChanged()
 
         } else {
@@ -245,6 +253,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 jetonComputer.color = colorComputer
                 jetonArrayList!![0].player = "null"
                 aanZet = "player"
+                updateJetonToDatabase(jetonComputer)
                 jetonAdaptor.notifyDataSetChanged()
             } else {
 
@@ -254,14 +263,37 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                     }
                 }
                 val choosenJeton = (freeJetonsList).random()
-                jetonComputer = gameCal.setCorrectPlace(choosenJeton, choosenJeton.position)
+                jetonComputer = gameCal.setCorrectPlace(choosenJeton.position)
                 jetonComputer.player = "computer"
                 jetonComputer.color = colorComputer
+                updateJetonToDatabase(jetonComputer)
                 jetonAdaptor.notifyDataSetChanged()
                 freeJetonsList.removeAll(freeJetonsList)
             }
 
         }
 
+    }
+
+    private fun insertJetonToDatabase(jeton: Jeton){
+        val r = jeton.r
+        val k = jeton.k
+        val color = jeton.color
+        val player = jeton.player
+        val position = jeton.position
+
+        val jetonForDB = Jeton(r,k,color,player,position,0)
+        mJetonViewModel.addJeton(jetonForDB)
+
+    }
+    private fun updateJetonToDatabase(jeton: Jeton){
+        val r = jeton.r
+        val k = jeton.k
+        val color = jeton.color
+        val player = jeton.player
+        val position = jeton.position
+
+        val jetonToUpdate : Jeton = Jeton(r,k,color,player,position,0)
+        mJetonViewModel.updateJeton(jetonToUpdate)
     }
 }
