@@ -9,12 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class JetonViewModel(application: Application):AndroidViewModel(application) {
-    private val jetonArrayList : LiveData<List<Jeton>>
+    private var jetonList : LiveData<List<Jeton>>
     private val repository : JetonRepository
     init {
         val jetonDao= JetonDatabase.getDatabase(application).jetonDao()
         repository = JetonRepository(jetonDao)
-        jetonArrayList = repository.jetonArrayList
+        jetonList = repository.jetonList
     }
     fun addJeton(jeton: Jeton){
         viewModelScope.launch(Dispatchers.IO){

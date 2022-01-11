@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.voer.Jeton
 
 class JetonRepository(private val jetonDao: JetonDao) {
-    val jetonArrayList: LiveData<List<Jeton>> = jetonDao.readAllData()
+    var jetonList: LiveData<List<Jeton>> = jetonDao.readAllData()
     suspend fun addJeton(jeton: Jeton) {
         jetonDao.addJeton(jeton)
     }

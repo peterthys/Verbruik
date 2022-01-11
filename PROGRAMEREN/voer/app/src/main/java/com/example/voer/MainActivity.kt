@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private var jetonArrayList: ArrayList<Jeton>? = ArrayList()
     private var combination4List: ArrayList<Combinations4>? = ArrayList()
     private lateinit var jetonAdaptor: JetonAdaptor
-    private lateinit var gameCal: GameCalculator
+    private lateinit var gameCalculator: GameCalculator
     private var colorPlayer: String = "null"
     private var colorComputer: String = "null"
     private var aanZet: String = "computer"
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         jetonAdaptor = JetonAdaptor(applicationContext, jetonArrayList!!)
         gridView.adapter = jetonAdaptor
         gridView.onItemClickListener = this
-        gameCal = GameCalculator(jetonArrayList!!, combination4List!!)
+        gameCalculator = GameCalculator(jetonArrayList!!, combination4List!!)
 
         startSpel()
 
@@ -166,12 +166,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 ButtonRood.setVisibility(View.VISIBLE)
                 ButtonIkBegin.setVisibility(View.GONE)
                 ButtonComputerBegint.setVisibility(View.GONE)
-                setJetonsList()
-                setCombinatieList()
-                aanZet = "computer"
-                startSpel()
+                insertJetonToDatabase(jeton)
                 jetonAdaptor.notifyDataSetChanged()
             }
+            aanZet = "computer"
         }
 
     }
@@ -184,17 +182,17 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             Toast.makeText(applicationContext, "Je bent niet aan zet !", Toast.LENGTH_LONG).show()
         } else
             controlAllreadyChoosen(jeton, position)
-        val voer: String = gameCal.control4OnARow()
+        val voer: String = gameCalculator.control4OnARow()
         if (voer == "player") {
             textView.setTextColor(Color.RED)
             textView.setText("\n\n Jij hebt gewonnen!\n Proficiat")
-            aanZet = "computer"
+            aanZet = "nobody"
         }
         nextJetonComputer()
 
         aanZet = "player"
 
-        val voer2 = gameCal.control4OnARow()
+        val voer2 = gameCalculator.control4OnARow()
 
         if (voer2 == "computer") {
             textView.setTextColor(Color.RED)
@@ -213,7 +211,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             ).show()
 
         } else {
-            val jetonPlayer = gameCal.setCorrectPlace(position)
+            val jetonPlayer = gameCalculator.setCorrectPlace(position)
             jetonPlayer.color = colorPlayer
             jetonPlayer.player = "player"
             updateJetonToDatabase(jetonPlayer)
@@ -237,7 +235,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
     fun nextJetonComputer() {
         val freeJetonsList: ArrayList<Jeton> = ArrayList()
-        var jetonComputer = gameCal.control3OnARow()
+        var jetonComputer = gameCalculator.control3OnARow()
         if (jetonComputer.player == "null") {
             jetonComputer.player = "computer"
             jetonComputer.color = colorComputer
@@ -247,7 +245,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             jetonAdaptor.notifyDataSetChanged()
 
         } else {
-            jetonComputer = gameCal.control2OnARow()
+            jetonComputer = gameCalculator.control2OnARow()
             if (jetonComputer.player == "null") {
                 jetonComputer.player = "computer"
                 jetonComputer.color = colorComputer
@@ -263,7 +261,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                     }
                 }
                 val choosenJeton = (freeJetonsList).random()
-                jetonComputer = gameCal.setCorrectPlace(choosenJeton.position)
+                jetonComputer = gameCalculator.setCorrectPlace(choosenJeton.position)
                 jetonComputer.player = "computer"
                 jetonComputer.color = colorComputer
                 updateJetonToDatabase(jetonComputer)
