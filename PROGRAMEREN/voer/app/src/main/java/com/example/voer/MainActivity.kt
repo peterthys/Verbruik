@@ -214,6 +214,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             jetonPlayer.player = "player"
             updateJetonToDatabase(jetonPlayer)
             jetonAdaptor.notifyDataSetChanged()
+            aanZet="computer"
         }
 
     }
