@@ -4,13 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.voer.Jeton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class JetonViewModel(application: Application):AndroidViewModel(application) {
-    private var jetonList : LiveData<List<Jeton>>
+    var jetonList : LiveData<List<Jeton>>
+    //var settings: LiveData<Settings>
     private val repository : JetonRepository
+    //private val repository2 : SettingsRepository
+
     init {
         val jetonDao= JetonDatabase.getDatabase(application).jetonDao()
         repository = JetonRepository(jetonDao)
@@ -23,7 +25,7 @@ class JetonViewModel(application: Application):AndroidViewModel(application) {
     }
     fun updateJeton(jeton: Jeton){
         viewModelScope.launch(Dispatchers.IO){
-            repository.addJeton(jeton)
+            repository.updateJeton(jeton)
         }
     }
 }

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import android.widget.TextView
+import com.example.voer.DataBase.Jeton
 
 
 class JetonAdaptor(var context: Context, var JetonArrayList: ArrayList<Jeton>) : BaseAdapter() {
@@ -35,6 +35,7 @@ class JetonAdaptor(var context: Context, var JetonArrayList: ArrayList<Jeton>) :
         val jeton: Jeton = JetonArrayList.get(position)
         cirkels.setImageResource(R.drawable.black_cirkel)
 
+        //cirkels.setColorFilter(Color(jeton.color))
         if (jeton.color == "red") {
             cirkels.setColorFilter(Color.RED)
         } else if (jeton.color == "yellow") {

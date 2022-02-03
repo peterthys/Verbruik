@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.voer.Jeton
 
-@Database(entities = [Jeton::class], version = 1, exportSchema = false)
+@Database(entities = [Jeton::class/*, Settings::class*/], version = 3, exportSchema = false)
 abstract class JetonDatabase : RoomDatabase() {
 
     abstract fun jetonDao(): JetonDao
+    //abstract fun jetonDao(): SettingsDao
 
     companion object {
         @Volatile
@@ -24,7 +24,9 @@ abstract class JetonDatabase : RoomDatabase() {
                     context.applicationContext,
                     JetonDatabase::class.java,
                     "jeton_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

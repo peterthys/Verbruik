@@ -4,47 +4,75 @@ package com.example.voer
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.voer.DataBase.Jeton
 import com.example.voer.DataBase.JetonViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
+const val PLAYER = "player"
+const val COMPUTER = "computer"
+
 class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private lateinit var gridView: GridView
-    private var jetonArrayList: ArrayList<Jeton> = ArrayList()
-    private var combination4List: ArrayList<Combinations4>? = ArrayList()
+    private lateinit var jetonArrayList: ArrayList<Jeton>
+    private var combination4List: ArrayList<Combinations4> = ArrayList()
     private lateinit var jetonAdaptor: JetonAdaptor
     private lateinit var gameCalculator: GameCalculator
+    //TODO: maak class met deze variablen in db
     private var colorPlayer: String = "null"
     private var colorComputer: String = "null"
-    private var aanZet: String = "computer"
+    //private var colorComputer: Int = Color.WHITE
+    private var aanZet: String = COMPUTER
+
+
     private lateinit var mJetonViewModel : JetonViewModel
+    private var initialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mJetonViewModel = ViewModelProvider(this).get(JetonViewModel::class.java)
         gridView = findViewById(R.id.grid_view)
-        jetonArrayList = setJetonsList()
+        //jetonArrayList = setJetonsList()
+        //combination4List = setCombinatieList()
+        //jetonAdaptor = JetonAdaptor(applicationContext, jetonArrayList)
+        //gridView.adapter = jetonAdaptor
+        gridView.onItemClickListener = this
+        //gameCalculator = GameCalculator(jetonArrayList, combination4List!!)
+
+        mJetonViewModel.jetonList.observe(this, {
+            if (!initialized) {
+                initialize(it)
+                initialized = true
+            }
+        })
+
+        startSpel()
+    }
+
+    private fun initialize(dbList: List<Jeton>) {
+        if (dbList.isNotEmpty()) {
+            jetonArrayList = ArrayList(dbList)
+        } else {
+            setJetonsList()
+        }
         combination4List = setCombinatieList()
         jetonAdaptor = JetonAdaptor(applicationContext, jetonArrayList)
         gridView.adapter = jetonAdaptor
-        gridView.onItemClickListener = this
-        gameCalculator = GameCalculator(jetonArrayList, combination4List!!)
-
-        startSpel()
-
+        gameCalculator = GameCalculator(jetonArrayList, combination4List)
     }
 
     private fun setJetonsList(): ArrayList<Jeton> {
-
+        var position = 0
         for (r: Int in 6 downTo 1) {
-            var position = 0
             for (k: Int in 1..7) {
-                jetonArrayList.add(Jeton(r, k, "null", "null", position,0))
-                insertJetonToDatabase(Jeton(r, k, "null", "null", position,0))
+                val jeton = Jeton(position, r, k, "null", "null")
+                jetonArrayList.add(jeton)
+                insertJetonToDatabase(jeton)
                 position++
             }
         }
@@ -52,6 +80,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     private fun setCombinatieList(): ArrayList<Combinations4> {
+
         val cijfers1: List<Int> = listOf(
             0, 1, 2, 3, 7, 8, 9, 10, 14, 15, 16, 17, 21, 22, 23, 24, 28, 29, 30, 31, 35, 36, 37, 38
         )
@@ -72,7 +101,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 jetonArrayList[i + 2],
                 jetonArrayList[i + 3]
             )
-            combination4List!!.add(comb4)
+            combination4List.add(comb4)
         }
         //Vier vertikaal
         for (i in cijfers2) {
@@ -157,17 +186,17 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             firstJetonComputer()
         }
         buttonHerstart.setOnClickListener {
-            for (jeton in jetonArrayList!!) {
+            for (jeton in jetonArrayList) {
                 jeton.player = "null"
                 jeton.color = "null"
                 ButtonGeel.setVisibility(View.VISIBLE)
                 ButtonRood.setVisibility(View.VISIBLE)
                 ButtonIkBegin.setVisibility(View.GONE)
                 ButtonComputerBegint.setVisibility(View.GONE)
-                insertJetonToDatabase(jeton)
+                updateJetonToDatabase(jeton)
                 jetonAdaptor.notifyDataSetChanged()
             }
-            aanZet = "computer"
+            aanZet = COMPUTER
         }
 
     }
@@ -188,6 +217,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         }
         nextJetonComputer()
 
+
         aanZet = "player"
 
         val voer2 = gameCalculator.control4OnARow()
@@ -195,7 +225,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         if (voer2 == "computer") {
             textView.setTextColor(Color.RED)
             textView.setText("\n\n Computer heeft gewonnen!")
-            aanZet = "computer"
+            aanZet = "nobody"
         }
     }
 
@@ -220,6 +250,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     fun firstJetonComputer(): Jeton {
+        Thread.sleep(3000)
         val randomGetal: Int = (3..5).random()
         val firstJeton = jetonArrayList[34 + randomGetal]
         firstJeton.color = colorComputer
@@ -233,10 +264,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     private fun nextJetonComputer() {
-        if (aanZet == "computer") {
+
+        if (aanZet == COMPUTER) {
             val freeJetonsList: ArrayList<Jeton> = ArrayList()
             var jetonComputer = gameCalculator.control3OnARow()
-            if (jetonComputer.player == "null") {
+            if (jetonComputer.player == "") {
                 jetonComputer.player = "computer"
                 jetonComputer.color = colorComputer
                 jetonArrayList[0].player = "null"
@@ -275,24 +307,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     private fun insertJetonToDatabase(jeton: Jeton){
-        val r = jeton.r
-        val k = jeton.k
-        val color = jeton.color
-        val player = jeton.player
-        val position = jeton.position
-
-        val jetonForDB = Jeton(r,k,color,player,position,0)
-        mJetonViewModel.addJeton(jetonForDB)
+        mJetonViewModel.addJeton(jeton)
 
     }
     private fun updateJetonToDatabase(jeton: Jeton){
-        val r = jeton.r
-        val k = jeton.k
-        val color = jeton.color
-        val player = jeton.player
-        val position = jeton.position
-
-        val jetonToUpdate : Jeton = Jeton(r,k,color,player,position,0)
-        mJetonViewModel.updateJeton(jetonToUpdate)
+        mJetonViewModel.updateJeton(jeton)
     }
 }

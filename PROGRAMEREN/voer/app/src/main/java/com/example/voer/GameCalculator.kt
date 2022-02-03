@@ -1,5 +1,7 @@
 package com.example.voer
 
+import com.example.voer.DataBase.Jeton
+
 class GameCalculator(
     var jetonArrayList: ArrayList<Jeton>,
     var combination4List: ArrayList<Combinations4>
