@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         if (dbList.isNotEmpty()) {
             jetonArrayList = ArrayList(dbList)
         } else {
+            jetonArrayList = ArrayList()
             setJetonsList()
         }
         combination4List = setCombinatieList()
@@ -187,6 +188,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         }
         buttonHerstart.setOnClickListener {
             for (jeton in jetonArrayList) {
+                textView.setTextColor(Color.BLACK)
+                textView.setText("Kies de kleur waarmee je wil spelen.")
                 jeton.player = "null"
                 jeton.color = "null"
                 ButtonGeel.setVisibility(View.VISIBLE)
@@ -250,7 +253,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     fun firstJetonComputer(): Jeton {
-        Thread.sleep(3000)
+//        Thread.sleep(3000)
         val randomGetal: Int = (3..5).random()
         val firstJeton = jetonArrayList[34 + randomGetal]
         firstJeton.color = colorComputer

@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Jeton::class/*, Settings::class*/], version = 3, exportSchema = false)
+@Database(entities = [Jeton::class, Settings::class], version = 7, exportSchema = false)
 abstract class JetonDatabase : RoomDatabase() {
 
     abstract fun jetonDao(): JetonDao
-    //abstract fun jetonDao(): SettingsDao
+    abstract fun settingsDao(): SettingsDao
 
     companion object {
         @Volatile

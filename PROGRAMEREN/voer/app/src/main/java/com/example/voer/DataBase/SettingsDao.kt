@@ -6,11 +6,12 @@ import androidx.room.*
 
 @Dao
 interface SettingsDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addSettings(settings:Settings)
 
-    @Query("SELECT * FROM jeton_table")
-    fun readAllData(): LiveData<List<Jeton>>
+    @Query("SELECT * FROM settings_table")
+    fun readSettings(): LiveData<Settings>
 
     @Update
     suspend fun updateSettings(settings:Settings)
