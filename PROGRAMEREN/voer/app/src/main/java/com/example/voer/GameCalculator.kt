@@ -19,7 +19,7 @@ class GameCalculator(
             in 28..34 -> {
 
                 when (jetonArrayList[position + 7].player) {
-                    "null" -> {
+                    "" -> {
                         return jetonArrayList[position + 7]
                     }
                     else -> {
@@ -30,10 +30,10 @@ class GameCalculator(
             in 21..27 -> {
 
                 when {
-                    jetonArrayList[position + 14].player == "null" -> {
+                    jetonArrayList[position + 14].player == "" -> {
                         return jetonArrayList[position + 14]
                     }
-                    jetonArrayList[position + 7].player == "null" -> {
+                    jetonArrayList[position + 7].player == "" -> {
                         return jetonArrayList[position + 7]
                     }
                     else -> {
@@ -44,13 +44,13 @@ class GameCalculator(
             }
             in 14..20 -> {
                 when {
-                    jetonArrayList[position + 21].player == "null" -> {
+                    jetonArrayList[position + 21].player == "" -> {
                         return jetonArrayList[position + 21]
                     }
-                    jetonArrayList[position + 14].player == "null" -> {
+                    jetonArrayList[position + 14].player == "" -> {
                         return jetonArrayList[position + 14]
                     }
-                    jetonArrayList[position + 7].player == "null" -> {
+                    jetonArrayList[position + 7].player == "" -> {
                         return jetonArrayList[position + 7]
                     }
                     else -> {
@@ -62,16 +62,16 @@ class GameCalculator(
             in 7..13 -> {
 
                 when {
-                    jetonArrayList[position + 28].player == "null" -> {
+                    jetonArrayList[position + 28].player == "" -> {
                         return jetonArrayList[position + 28]
                     }
-                    jetonArrayList[position + 21].player == "null" -> {
+                    jetonArrayList[position + 21].player == "" -> {
                         return jetonArrayList[position + 21]
                     }
-                    jetonArrayList[position + 14].player == "null" -> {
+                    jetonArrayList[position + 14].player == "" -> {
                         return jetonArrayList[position + 14]
                     }
-                    jetonArrayList[position + 7].player == "null" -> {
+                    jetonArrayList[position + 7].player == "" -> {
                         return jetonArrayList[position + 7]
                     }
                     else -> {
@@ -83,19 +83,19 @@ class GameCalculator(
             in 0..6 -> {
 
                 when {
-                    jetonArrayList[position + 35].player == "null" -> {
+                    jetonArrayList[position + 35].player == "" -> {
                         return jetonArrayList[position + 35]
                     }
-                    jetonArrayList[position + 28].player == "null" -> {
+                    jetonArrayList[position + 28].player == "" -> {
                         return jetonArrayList[position + 28]
                     }
-                    jetonArrayList[position + 21].player == "null" -> {
+                    jetonArrayList[position + 21].player == "" -> {
                         return jetonArrayList[position + 21]
                     }
-                    jetonArrayList[position + 14].player == "null" -> {
+                    jetonArrayList[position + 14].player == "" -> {
                         return jetonArrayList[position + 14]
                     }
-                    jetonArrayList[position + 7].player == "null" -> {
+                    jetonArrayList[position + 7].player == "" -> {
                         return jetonArrayList[position + 7]
                     }
                     else -> {
@@ -118,11 +118,11 @@ class GameCalculator(
                 (comb.jeton1.player == "player" || comb.jeton1.player == "computer"
                         )
             ) {
-                comb.jeton1.color = "blue"
-                comb.jeton2.color = "blue"
-                comb.jeton3.color = "blue"
-                comb.jeton4.color = "blue"
-                return comb.jeton1.player!!
+                comb.jeton1.color = BLUE
+                comb.jeton2.color = BLUE
+                comb.jeton3.color = BLUE
+                comb.jeton4.color = BLUE
+                return comb.jeton1.player
             }
         return "1"
     }
@@ -134,8 +134,8 @@ class GameCalculator(
             when {
                 (comb.jeton1.player == comb.jeton2.player) &&
                         (comb.jeton2.player == comb.jeton3.player) &&
-                        (comb.jeton1.player == "computer") &&
-                        (comb.jeton4.player == "null") -> {
+                        (comb.jeton1.player == COMPUTER) &&
+                        (comb.jeton4.player == "") -> {
                     val jetonComputer = setCorrectPlace(comb.jeton4.position)
                     while (jetonComputer == comb.jeton4) {
                         return comb.jeton4
@@ -143,8 +143,8 @@ class GameCalculator(
                 }
                 (comb.jeton2.player == comb.jeton3.player) &&
                         (comb.jeton3.player == comb.jeton4.player) &&
-                        (comb.jeton2.player == "computer") &&
-                        (comb.jeton1.player == "null") -> {
+                        (comb.jeton2.player == COMPUTER) &&
+                        (comb.jeton1.player == "") -> {
                     val jetonComputer = setCorrectPlace(comb.jeton1.position)
                     while (jetonComputer == comb.jeton1) {
                         return comb.jeton1
@@ -152,8 +152,8 @@ class GameCalculator(
                 }
                 (comb.jeton1.player == comb.jeton2.player) &&
                         (comb.jeton2.player == comb.jeton4.player) &&
-                        (comb.jeton1.player == "computer") &&
-                        (comb.jeton3.player == "null") -> {
+                        (comb.jeton1.player == COMPUTER) &&
+                        (comb.jeton3.player == "") -> {
                     val jetonComputer = setCorrectPlace(comb.jeton4.position)
                     while (jetonComputer == comb.jeton4) {
                         return comb.jeton3
@@ -161,8 +161,8 @@ class GameCalculator(
                 }
                 (comb.jeton1.player == comb.jeton3.player) &&
                         (comb.jeton3.player == comb.jeton4.player) &&
-                        (comb.jeton1.player == "computer") &&
-                        (comb.jeton2.player == "null") -> {
+                        (comb.jeton1.player == COMPUTER) &&
+                        (comb.jeton2.player == "") -> {
                     val jetonComputer = setCorrectPlace(comb.jeton2.position)
                     while (jetonComputer == comb.jeton2) {
                         return comb.jeton2
@@ -175,8 +175,8 @@ class GameCalculator(
             when {
                 (comb.jeton1.player == comb.jeton2.player) &&
                         (comb.jeton2.player == comb.jeton3.player) &&
-                        (comb.jeton1.player == "player") &&
-                        (comb.jeton4.player == "null") -> {
+                        (comb.jeton1.player == PLAYER) &&
+                        (comb.jeton4.player == "") -> {
                     val jetonComputer = setCorrectPlace(comb.jeton4.position)
                     while (jetonComputer == comb.jeton4) {
                         return comb.jeton4
@@ -184,8 +184,8 @@ class GameCalculator(
                 }
                 (comb.jeton2.player == comb.jeton3.player) &&
                         (comb.jeton3.player == comb.jeton4.player) &&
-                        (comb.jeton2.player == "player") &&
-                        (comb.jeton1.player == "null") -> {
+                        (comb.jeton2.player == PLAYER) &&
+                        (comb.jeton1.player == "") -> {
                     val jetonComputer = setCorrectPlace(comb.jeton1.position)
                     while (jetonComputer == comb.jeton1) {
                         return comb.jeton1
@@ -193,8 +193,8 @@ class GameCalculator(
                 }
                 (comb.jeton1.player == comb.jeton2.player) &&
                         (comb.jeton2.player == comb.jeton4.player) &&
-                        (comb.jeton1.player == "player") &&
-                        (comb.jeton3.player == "null") -> {
+                        (comb.jeton1.player == PLAYER) &&
+                        (comb.jeton3.player == "") -> {
                     val jetonComputer = setCorrectPlace(comb.jeton3.position)
                     while (jetonComputer == comb.jeton3) {
                         return comb.jeton3
@@ -202,8 +202,8 @@ class GameCalculator(
                 }
                 (comb.jeton1.player == comb.jeton3.player) &&
                         (comb.jeton3.player == comb.jeton4.player) &&
-                        (comb.jeton1.player == "player") &&
-                        (comb.jeton2.player == "null") -> {
+                        (comb.jeton1.player == PLAYER) &&
+                        (comb.jeton2.player == "") -> {
                     val jetonComputer = setCorrectPlace(comb.jeton2.position)
                     while (jetonComputer == comb.jeton2) {
                         return comb.jeton2
@@ -222,8 +222,8 @@ class GameCalculator(
 
             when {
                 (comb.jeton2.player == comb.jeton3.player) &&
-                        (comb.jeton2.player == "player" || comb.jeton2.player == "computer") &&
-                        ((comb.jeton1.player == "null") && (comb.jeton4.player == "null")) -> {
+                        (comb.jeton2.player == PLAYER || comb.jeton2.player == COMPUTER) &&
+                        ((comb.jeton1.player == "") && (comb.jeton4.player == "")) -> {
                     val choice = listOf(comb.jeton1, comb.jeton4)
                     val choiceComputer = choice.random()
                     val jetonComputer = setCorrectPlace(choiceComputer.position)
@@ -232,8 +232,8 @@ class GameCalculator(
                     }
                 }
                 (comb.jeton1.player == comb.jeton4.player) &&
-                        (comb.jeton1.player == "player" || comb.jeton1.player == "computer") &&
-                        ((comb.jeton2.player == "null") && (comb.jeton3.player == "null")) -> {
+                        (comb.jeton1.player == PLAYER || comb.jeton1.player == COMPUTER) &&
+                        ((comb.jeton2.player == "") && (comb.jeton3.player == "")) -> {
                     val choice = listOf(comb.jeton2, comb.jeton3)
                     val choiceComputer = choice.random()
                     val jetonComputer = setCorrectPlace(choiceComputer.position)
@@ -242,8 +242,8 @@ class GameCalculator(
                     }
                 }
                 (comb.jeton1.player == comb.jeton3.player) &&
-                        (comb.jeton1.player == "player" || comb.jeton1.player == "computer") &&
-                        ((comb.jeton2.player == "null") && (comb.jeton4.player == "null")) -> {
+                        (comb.jeton1.player == PLAYER || comb.jeton1.player == COMPUTER) &&
+                        ((comb.jeton2.player == "") && (comb.jeton4.player == "")) -> {
                     val choice = listOf(comb.jeton2, comb.jeton4)
                     val choiceComputer = choice.random()
                     val jetonComputer = setCorrectPlace(choiceComputer.position)
@@ -252,8 +252,8 @@ class GameCalculator(
                     }
                 }
                 (comb.jeton2.player == comb.jeton4.player) &&
-                        (comb.jeton2.player == "player" || comb.jeton2.player == "computer") &&
-                        ((comb.jeton1.player == "null") && (comb.jeton3.player == "null")) -> {
+                        (comb.jeton2.player == PLAYER || comb.jeton2.player == COMPUTER) &&
+                        ((comb.jeton1.player == "") && (comb.jeton3.player == "")) -> {
                     val choice = listOf(comb.jeton1, comb.jeton3)
                     val choiceComputer = choice.random()
                     val jetonComputer = setCorrectPlace(choiceComputer.position)

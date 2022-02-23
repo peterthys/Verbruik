@@ -36,11 +36,11 @@ class JetonAdaptor(var context: Context, var JetonArrayList: ArrayList<Jeton>) :
         cirkels.setImageResource(R.drawable.black_cirkel)
 
         //cirkels.setColorFilter(Color(jeton.color))
-        if (jeton.color == "red") {
+        if (jeton.color == RED) {
             cirkels.setColorFilter(Color.RED)
-        } else if (jeton.color == "yellow") {
+        } else if (jeton.color == YELLOW) {
             cirkels.setColorFilter(Color.YELLOW)
-        } else if (jeton.color == "blue") {
+        } else if (jeton.color == BLUE) {
             cirkels.setColorFilter(Color.BLUE)
         } else
             cirkels.setColorFilter(Color.WHITE)

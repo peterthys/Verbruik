@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 
 class SettingsRepository(private val settingsDao: SettingsDao) {
 
-        var theSettings : LiveData<Settings> = settingsDao.readSettings()
+        val theSettings : LiveData<Settings> = settingsDao.readSettings()
 
         suspend fun addSettings(settings: Settings){
             settingsDao.addSettings(settings)

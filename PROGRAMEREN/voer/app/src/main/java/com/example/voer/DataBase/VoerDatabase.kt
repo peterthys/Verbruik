@@ -5,16 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Jeton::class, Settings::class], version = 7, exportSchema = false)
-abstract class JetonDatabase : RoomDatabase() {
+@Database(entities = [Jeton::class, Settings::class], version = 8, exportSchema = false)
+abstract class VoerDatabase : RoomDatabase() {
 
     abstract fun jetonDao(): JetonDao
     abstract fun settingsDao(): SettingsDao
 
     companion object {
         @Volatile
-        private var INSTANCE: JetonDatabase? = null
-        fun getDatabase(context: Context): JetonDatabase {
+        private var INSTANCE: VoerDatabase? = null
+        fun getDatabase(context: Context): VoerDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -22,7 +22,7 @@ abstract class JetonDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    JetonDatabase::class.java,
+                    VoerDatabase::class.java,
                     "jeton_database"
                 )
                     .fallbackToDestructiveMigration()

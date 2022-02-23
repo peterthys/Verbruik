@@ -4,17 +4,22 @@ package com.example.voer
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.voer.DataBase.Jeton
-import com.example.voer.DataBase.JetonViewModel
+import com.example.voer.DataBase.VoerViewModel
+import com.example.voer.DataBase.Settings
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val PLAYER = "player"
 const val COMPUTER = "computer"
+const val WHITE = Color.WHITE
+const val YELLOW = Color.YELLOW
+const val RED = Color.RED
+const val BLUE = Color.BLUE
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private lateinit var gridView: GridView
@@ -22,20 +27,17 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private var combination4List: ArrayList<Combinations4> = ArrayList()
     private lateinit var jetonAdaptor: JetonAdaptor
     private lateinit var gameCalculator: GameCalculator
-    //TODO: maak class met deze variablen in db
-    private var colorPlayer: String = "null"
-    private var colorComputer: String = "null"
-    //private var colorComputer: Int = Color.WHITE
-    private var aanZet: String = COMPUTER
 
+    private var whoseTurn: String = COMPUTER
+    private lateinit var mySettings: Settings
 
-    private lateinit var mJetonViewModel : JetonViewModel
+    private lateinit var mVoerViewModel: VoerViewModel
     private var initialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mJetonViewModel = ViewModelProvider(this).get(JetonViewModel::class.java)
+        mVoerViewModel = ViewModelProvider(this).get(VoerViewModel::class.java)
         gridView = findViewById(R.id.grid_view)
         //jetonArrayList = setJetonsList()
         //combination4List = setCombinatieList()
@@ -44,9 +46,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         gridView.onItemClickListener = this
         //gameCalculator = GameCalculator(jetonArrayList, combination4List!!)
 
-        mJetonViewModel.jetonList.observe(this, {
+        mVoerViewModel.jetonList.observe(this, {
             if (!initialized) {
                 initialize(it)
+
                 initialized = true
             }
         })
@@ -57,11 +60,22 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     private fun initialize(dbList: List<Jeton>) {
         if (dbList.isNotEmpty()) {
             jetonArrayList = ArrayList(dbList)
+            mySettings = mVoerViewModel.settings.value!!
+//            mVoerViewModel.settings.observe(this, {
+//                mySettings = Settings(it.whoseTurn, it.colorPlayer, it.colorComputer)
+//                val dbWhoseTurn = this.whoseTurn
+//                val dbColorPlayer = this.colorPlayer
+//                val dbColorComputer = it.colorComputer
+//               mySettings = Settings(mVoerViewModel.settings.whoseTurn, mVoerViewModel.settings.ColorPlayer, dbColorComputer)
+ //           })
         } else {
             jetonArrayList = ArrayList()
+            mySettings = Settings()
             setJetonsList()
+            mySettings = Settings(PLAYER, WHITE, WHITE)
         }
         combination4List = setCombinatieList()
+
         jetonAdaptor = JetonAdaptor(applicationContext, jetonArrayList)
         gridView.adapter = jetonAdaptor
         gameCalculator = GameCalculator(jetonArrayList, combination4List)
@@ -71,7 +85,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         var position = 0
         for (r: Int in 6 downTo 1) {
             for (k: Int in 1..7) {
-                val jeton = Jeton(position, r, k, "null", "null")
+                val jeton = Jeton(position, r, k, WHITE, "")
                 jetonArrayList.add(jeton)
                 insertJetonToDatabase(jeton)
                 position++
@@ -112,7 +126,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 jetonArrayList[i + 14],
                 jetonArrayList[i + 21]
             )
-            combination4List!!.add(comb4)
+            combination4List.add(comb4)
         }
         //Vier diagonaal stijgend
         for (i in cijfers3) {
@@ -122,7 +136,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 jetonArrayList[i + 12],
                 jetonArrayList[i + 18]
             )
-            combination4List!!.add(comb4)
+            combination4List.add(comb4)
         }
         //Vier diagonaal dalend
         for (i in cijfers4) {
@@ -132,9 +146,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 jetonArrayList[i + 16],
                 jetonArrayList[i + 24]
             )
-            combination4List!!.add(comb4)
+            combination4List.add(comb4)
         }
-        return combination4List!!
+        return combination4List
     }
 
 
@@ -152,8 +166,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
 
         ButtonGeel.setOnClickListener {
-            colorPlayer = "yellow"
-            colorComputer = "red"
+//            colorPlayer = YELLOW
+//            colorComputer = RED
+            mySettings.colorComputer = RED
+            mySettings.colorPlayer = YELLOW
+            mVoerViewModel.updateSettings(mySettings)
             ButtonGeel.setVisibility(View.GONE)
             ButtonRood.setVisibility(View.GONE)
             ButtonIkBegin.setVisibility(View.VISIBLE)
@@ -161,8 +178,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             textView.setText("Kies wie begint.")
         }
         ButtonRood.setOnClickListener {
-            colorPlayer = "red"
-            colorComputer = "yellow"
+//            colorPlayer = RED
+//            colorComputer = YELLOW
+            mySettings.colorPlayer = RED
+            mySettings.colorComputer = YELLOW
+            mVoerViewModel.updateSettings(mySettings)
             ButtonGeel.setVisibility(View.GONE)
             ButtonRood.setVisibility(View.GONE)
             ButtonIkBegin.setVisibility(View.VISIBLE)
@@ -177,29 +197,35 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
             ButtonRood.setVisibility(View.GONE)
             ButtonIkBegin.setVisibility(View.GONE)
             ButtonComputerBegint.setVisibility(View.GONE)
-            aanZet = "speler"
+            mySettings.whoseTurn = PLAYER
+            mVoerViewModel.updateSettings(mySettings)
+//            whoseTurn = PLAYER
         }
         ButtonComputerBegint.setOnClickListener {
             ButtonGeel.setVisibility(View.GONE)
             ButtonRood.setVisibility(View.GONE)
             ButtonIkBegin.setVisibility(View.GONE)
             ButtonComputerBegint.setVisibility(View.GONE)
+            mySettings.whoseTurn = COMPUTER
+            mVoerViewModel.updateSettings(mySettings)
             firstJetonComputer()
         }
         buttonHerstart.setOnClickListener {
             for (jeton in jetonArrayList) {
                 textView.setTextColor(Color.BLACK)
                 textView.setText("Kies de kleur waarmee je wil spelen.")
-                jeton.player = "null"
-                jeton.color = "null"
+                jeton.player = ""
+                jeton.color = WHITE
                 ButtonGeel.setVisibility(View.VISIBLE)
                 ButtonRood.setVisibility(View.VISIBLE)
                 ButtonIkBegin.setVisibility(View.GONE)
                 ButtonComputerBegint.setVisibility(View.GONE)
+                mySettings = Settings(COMPUTER, WHITE, WHITE)
+                mVoerViewModel.updateSettings(mySettings)
                 updateJetonToDatabase(jeton)
                 jetonAdaptor.notifyDataSetChanged()
             }
-            aanZet = COMPUTER
+            //  whoseTurn = COMPUTER
         }
 
     }
@@ -208,7 +234,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
         val jeton: Jeton = jetonArrayList.get(position)
-        if (aanZet == "computer") {
+        if (whoseTurn == "computer") {
             Toast.makeText(applicationContext, "Je bent niet aan zet !", Toast.LENGTH_LONG).show()
         } else
             controlAllreadyChoosen(jeton, position)
@@ -216,25 +242,25 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         if (voer == "player") {
             textView.setTextColor(Color.RED)
             textView.setText("\n\n Jij hebt gewonnen!\n Proficiat")
-            aanZet = "nobody"
+            whoseTurn = "nobody"
         }
-        nextJetonComputer()
+        nextJetonComputer(mySettings)
 
 
-        aanZet = "player"
+        whoseTurn = "player"
 
         val voer2 = gameCalculator.control4OnARow()
 
         if (voer2 == "computer") {
             textView.setTextColor(Color.RED)
             textView.setText("\n\n Computer heeft gewonnen!")
-            aanZet = "nobody"
+            whoseTurn = "nobody"
         }
     }
 
     fun controlAllreadyChoosen(jeton: Jeton, position: Int) {
 
-        if (jeton.color == "red" || jeton.color == "yellow") {
+        if (jeton.color == RED || jeton.color == YELLOW) {
             Toast.makeText(
                 applicationContext,
                 "Jeton is reeds bezet !\nMaak een andere keuze.",
@@ -243,11 +269,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
         } else {
             val jetonPlayer = gameCalculator.setCorrectPlace(position)
-            jetonPlayer.color = colorPlayer
-            jetonPlayer.player = "player"
+            jetonPlayer.color = mySettings.colorPlayer
+            jetonPlayer.player = PLAYER
             updateJetonToDatabase(jetonPlayer)
             jetonAdaptor.notifyDataSetChanged()
-            aanZet="computer"
+            whoseTurn = "computer"
         }
 
     }
@@ -256,26 +282,28 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 //        Thread.sleep(3000)
         val randomGetal: Int = (3..5).random()
         val firstJeton = jetonArrayList[34 + randomGetal]
-        firstJeton.color = colorComputer
-        firstJeton.player = "computer"
+        firstJeton.color = mySettings.colorComputer
+        firstJeton.player = COMPUTER
         textView.setText("\n\njouw beurt")
-        aanZet = "player"
+        whoseTurn = PLAYER
+        mySettings.whoseTurn = PLAYER
+        mVoerViewModel.updateSettings(mySettings)
         updateJetonToDatabase(firstJeton)
         jetonAdaptor.notifyDataSetChanged()
         return firstJeton
 
     }
 
-    private fun nextJetonComputer() {
-
-        if (aanZet == COMPUTER) {
+    private fun nextJetonComputer(theSettings: Settings) {
+        mySettings = theSettings
+        if (whoseTurn == COMPUTER) {
             val freeJetonsList: ArrayList<Jeton> = ArrayList()
             var jetonComputer = gameCalculator.control3OnARow()
             if (jetonComputer.player == "") {
-                jetonComputer.player = "computer"
-                jetonComputer.color = colorComputer
+                jetonComputer.player = COMPUTER
+                jetonComputer.color = mySettings.colorComputer
                 jetonArrayList[0].player = "null"
-                aanZet = "player"
+                whoseTurn = PLAYER
                 updateJetonToDatabase(jetonComputer)
                 jetonAdaptor.notifyDataSetChanged()
 
@@ -283,37 +311,38 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 jetonComputer = gameCalculator.control2OnARow()
                 if (jetonComputer.player == "null") {
                     jetonComputer.player = "computer"
-                    jetonComputer.color = colorComputer
+                    jetonComputer.color = mySettings.colorComputer
                     jetonArrayList[0].player = "null"
-                    aanZet = "player"
+                    whoseTurn = "player"
                     updateJetonToDatabase(jetonComputer)
                     jetonAdaptor.notifyDataSetChanged()
                 } else {
 
-                for (jeton in jetonArrayList) {
-                    if (jeton.color != "red" && jeton.color != "yellow") {
-                        freeJetonsList.add(jeton)
+                    for (jeton in jetonArrayList) {
+                        if (jeton.color != RED && jeton.color != YELLOW) {
+                            freeJetonsList.add(jeton)
+                        }
                     }
+                    val choosenJeton = (freeJetonsList).random()
+                    jetonComputer = gameCalculator.setCorrectPlace(choosenJeton.position)
+                    jetonComputer.player = "computer"
+                    jetonComputer.color = mySettings.colorComputer
+                    updateJetonToDatabase(jetonComputer)
+                    jetonAdaptor.notifyDataSetChanged()
+                    freeJetonsList.removeAll(freeJetonsList)
                 }
-                val choosenJeton = (freeJetonsList).random()
-                jetonComputer = gameCalculator.setCorrectPlace(choosenJeton.position)
-                jetonComputer.player = "computer"
-                jetonComputer.color = colorComputer
-                updateJetonToDatabase(jetonComputer)
-                jetonAdaptor.notifyDataSetChanged()
-                freeJetonsList.removeAll(freeJetonsList)
-            }
 
             }
         } else {
         }
     }
 
-    private fun insertJetonToDatabase(jeton: Jeton){
-        mJetonViewModel.addJeton(jeton)
+    private fun insertJetonToDatabase(jeton: Jeton) {
+        mVoerViewModel.addJeton(jeton)
 
     }
-    private fun updateJetonToDatabase(jeton: Jeton){
-        mJetonViewModel.updateJeton(jeton)
+
+    private fun updateJetonToDatabase(jeton: Jeton) {
+        mVoerViewModel.updateJeton(jeton)
     }
 }

@@ -7,15 +7,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class JetonViewModel(application: Application):AndroidViewModel(application) {
-    var jetonList : LiveData<List<Jeton>>
-    var settings: LiveData<Settings>
+class VoerViewModel(application: Application):AndroidViewModel(application) {
+    val jetonList : LiveData<List<Jeton>>
+    val settings: LiveData<Settings>
     private val repository : JetonRepository
     private val repository2 : SettingsRepository
 
     init {
-        val jetonDao = JetonDatabase.getDatabase(application).jetonDao()
-        val settingsDao = JetonDatabase.getDatabase(application).settingsDao()
+        val jetonDao = VoerDatabase.getDatabase(application).jetonDao()
+        val settingsDao = VoerDatabase.getDatabase(application).settingsDao()
         repository = JetonRepository(jetonDao)
         repository2 = SettingsRepository(settingsDao)
         jetonList = repository.jetonList
