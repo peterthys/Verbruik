@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class VoerViewModel(application: Application):AndroidViewModel(application) {
     val jetonList : LiveData<List<Jeton>>
-    val settings: LiveData<Settings>
+    val settings: LiveData<List<Settings>>
     private val repository : JetonRepository
     private val repository2 : SettingsRepository
 
