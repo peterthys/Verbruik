@@ -10,10 +10,7 @@ data class Settings(
 
     var whoseTurn: String = "",
     var colorPlayer: Int = Color.WHITE,
-    var colorComputer
-    : Int = Color.WHITE
+    var colorComputer: Int = Color.WHITE,
+    @PrimaryKey
+    val id : Int = 1
 )
-{@PrimaryKey(autoGenerate = true)
-var id : Int = 0
-
-}
