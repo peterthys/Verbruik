@@ -1,19 +1,19 @@
 package com.example.winkellijst.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 
 @Dao
 interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addItem(item: Item)
+    suspend fun addItem(boodschap: Boodschap)
 
     @Query("SELECT *FROM item_table ORDER BY id ASC")
-    fun readAllItems(): LiveData<List<Item>>
+    fun readAllItems(): LiveData<List<Boodschap>>
+
+    @Delete
+    suspend fun deleteBoodschap(boodschap: Boodschap)
 
 
 }

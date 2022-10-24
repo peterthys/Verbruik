@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class ItemViewmodel(application: Application) : AndroidViewModel(application) {
 
-    private val readAllItems: LiveData<List<Item>>
+    val readAllItems: LiveData<List<Boodschap>>
     private val repository: ItemRepository
 
     init {
@@ -19,9 +19,14 @@ class ItemViewmodel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun addItem(item: Item) {
+    fun addItem(boodschap: Boodschap) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addItem(item)
+            repository.addItem(boodschap)
+        }
+    }
+    fun deleteBoodschap(boodschap: Boodschap){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteBoodschap(boodschap)
         }
     }
 }

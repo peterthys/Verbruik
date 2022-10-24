@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/peter/Documents/WInkelLijst/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/peter/Documents/WInkelLijst/app/src/main/res/drawable/ic_add.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/peter/Documents/WInkelLijst/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/peter/Documents/WInkelLijst/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/peter/Documents/WInkelLijst/app/src/main/res/layout/custom_row.xml" value="0.25" />
         <entry key="..\:/Users/peter/Documents/WInkelLijst/app/src/main/res/layout/fragment_add.xml" value="0.18" />
         <entry key="..\:/Users/peter/Documents/WInkelLijst/app/src/main/res/layout/fragment_list.xml" value="0.18" />
+        <entry key="..\:/Users/peter/Documents/WInkelLijst/app/src/main/res/menu/delete_menu.xml" value="0.25" />
       </map>
     </option>
   </component>
