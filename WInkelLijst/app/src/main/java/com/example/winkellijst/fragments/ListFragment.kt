@@ -1,6 +1,6 @@
 package com.example.winkellijst.fragments
 
-import android.content.ClipData
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -13,16 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.winkellijst.ListAdapter
 import com.example.winkellijst.R
 import com.example.winkellijst.data.Boodschap
-import com.example.winkellijst.data.ItemViewmodel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.custom_row.*
-import kotlinx.android.synthetic.main.custom_row.view.*
+import com.example.winkellijst.data.BoodschapViewmodel
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
 class ListFragment : Fragment(), ListAdapter.OnItemClickListener {
 
-    private lateinit var mItemViewModel: ItemViewmodel
+    private lateinit var mBoodschapViewModel: BoodschapViewmodel
     private lateinit var itemsList: LiveData<List<Boodschap>>
     private var gekozenBoodschap = Boodschap(0, "")
     private val adapter = ListAdapter(gekozenBoodschap, this)
@@ -30,17 +27,17 @@ class ListFragment : Fragment(), ListAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_list, container, false)
-        mItemViewModel = ViewModelProvider(this).get(ItemViewmodel::class.java)
-        itemsList = mItemViewModel.readAllItems
+        mBoodschapViewModel = ViewModelProvider(this).get(BoodschapViewmodel::class.java)
+        itemsList = mBoodschapViewModel.readAllItems
 
         val recyclerView = view.rv_items
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        mItemViewModel = ViewModelProvider(this).get(ItemViewmodel::class.java)
-        mItemViewModel.readAllItems.observe(
+        mBoodschapViewModel = ViewModelProvider(this).get(BoodschapViewmodel::class.java)
+        mBoodschapViewModel.readAllItems.observe(
             viewLifecycleOwner,
             Observer { item ->
                 adapter.setData(item)
@@ -66,23 +63,29 @@ class ListFragment : Fragment(), ListAdapter.OnItemClickListener {
 
     }
 
+    fun deleteBoodschap() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            mBoodschapViewModel.deleteBoodschap(boodschap = gekozenBoodschap)
+            Toast.makeText(requireContext(), "${gekozenBoodschap.productsName} verwijderd", Toast.LENGTH_SHORT)
+                .show()
+                }
+        builder.setNegativeButton("No") { _, _ ->
+            mBoodschapViewModel.deleteAllBoodschap()
+            Toast.makeText(requireContext(), "Alles verwijderd", Toast.LENGTH_SHORT)
+                .show()
 
-    //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if(item.itemId==R.id.menu_delete)
-//            var selectedItem = Boodschap
-//            deleteBoodschap(boodschap = )
-//        return super.onOptionsItemSelected(item)
-//    }
-    fun deleteBoodschap(position: Int) =
-        Toast.makeText(requireContext(), "choosen !", Toast.LENGTH_SHORT).show()
+
+        }
+        builder.setTitle("Delete ${gekozenBoodschap.productsName}? (YES) or delete all items (NO)")
+        builder.setMessage("Are you sure to delete ${gekozenBoodschap.productsName}?")
+        builder.create().show()
+    }
 
     override fun onItemClick(boodschap: Boodschap) {
         gekozenBoodschap = boodschap
-        Toast.makeText(requireContext(), "$boodschap verwijderd", Toast.LENGTH_SHORT).show()
+        deleteBoodschap()
+        Toast.makeText(requireContext(), "${boodschap.productsName} verwijderd", Toast.LENGTH_SHORT)
+            .show()
     }
 }
-//    override fun onItemClick(position: Int) {
-//        Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
-//
-//
-//}

@@ -71,8 +71,8 @@ class ListAdapter (boodschap: Boodschap,
         return itemsList.size
     }
 
-    fun setData(boodschap: List<Boodschap>) {
-        this.itemsList = boodschap
+    fun setData(boodschapsList: List<Boodschap>) {
+        this.itemsList = boodschapsList
         notifyDataSetChanged()
     }
 

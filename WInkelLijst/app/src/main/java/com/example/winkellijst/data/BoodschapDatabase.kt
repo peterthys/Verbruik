@@ -6,14 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Boodschap::class], version = 1, exportSchema = false)
-abstract class ItemDatabase : RoomDatabase() {
-    abstract fun itemDao(): ItemDao
+@Database(entities = [Boodschap::class], version = 2, exportSchema = false)
+abstract class BoodschapDatabase : RoomDatabase() {
+    abstract fun itemDao(): BoodschapDao
     companion object{
         @Volatile
-        private var INSTANCE: ItemDatabase? = null
+        private var INSTANCE: BoodschapDatabase? = null
 
-        fun getDatabase(context: Context):ItemDatabase{
+        fun getDatabase(context: Context):BoodschapDatabase{
             val tempInstance = INSTANCE
             if (tempInstance != null){
                 return tempInstance
@@ -21,8 +21,8 @@ abstract class ItemDatabase : RoomDatabase() {
             synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ItemDatabase::class.java,
-                    "item_database"
+                    BoodschapDatabase::class.java,
+                    "boodschap_database"
                 ).build()
                 INSTANCE = instance
                 return instance

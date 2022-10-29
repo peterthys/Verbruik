@@ -5,7 +5,7 @@ import androidx.room.*
 
 
 @Dao
-interface ItemDao {
+interface BoodschapDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addItem(boodschap: Boodschap)
 
@@ -15,5 +15,7 @@ interface ItemDao {
     @Delete
     suspend fun deleteBoodschap(boodschap: Boodschap)
 
+    @Query("DELETE FROM item_table")
+    suspend fun deleteAllBoodschap()
 
 }

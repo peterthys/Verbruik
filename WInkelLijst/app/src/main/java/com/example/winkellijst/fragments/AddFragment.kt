@@ -11,20 +11,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.winkellijst.R
 import com.example.winkellijst.data.Boodschap
-import com.example.winkellijst.data.ItemViewmodel
+import com.example.winkellijst.data.BoodschapViewmodel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 
 
 class AddFragment : Fragment() {
-    private lateinit var mItemViewModel: ItemViewmodel
+    private lateinit var mBoodschapViewModel: BoodschapViewmodel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add, container, false)
-        mItemViewModel = ViewModelProvider(this).get(ItemViewmodel::class.java)
+        mBoodschapViewModel = ViewModelProvider(this).get(BoodschapViewmodel::class.java)
 
         view.btn_add_to_list.setOnClickListener {
             insertItemToDataBase()
@@ -38,7 +37,7 @@ class AddFragment : Fragment() {
         val itemDiscription = et_item.text.toString()
         if (inputCheck(itemDiscription)){
             val item = Boodschap(id=0,itemDiscription)
-            mItemViewModel.addItem(item)
+            mBoodschapViewModel.addItem(item)
             Toast.makeText(requireContext(),"Succesfully added!",Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }

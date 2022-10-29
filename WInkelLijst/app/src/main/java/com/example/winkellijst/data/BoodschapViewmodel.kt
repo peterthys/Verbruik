@@ -7,14 +7,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ItemViewmodel(application: Application) : AndroidViewModel(application) {
+class BoodschapViewmodel(application: Application) : AndroidViewModel(application) {
 
     val readAllItems: LiveData<List<Boodschap>>
-    private val repository: ItemRepository
+    private val repository: BoodschapRepository
 
     init {
-        val itemDao = ItemDatabase.getDatabase(application).itemDao()
-        repository = ItemRepository(itemDao)
+        val itemDao = BoodschapDatabase.getDatabase(application).itemDao()
+        repository = BoodschapRepository(itemDao)
         readAllItems = repository.readAllItemsList
 
     }
@@ -27,6 +27,11 @@ class ItemViewmodel(application: Application) : AndroidViewModel(application) {
     fun deleteBoodschap(boodschap: Boodschap){
         viewModelScope.launch(Dispatchers.IO){
             repository.deleteBoodschap(boodschap)
+        }
+    }
+    fun deleteAllBoodschap(){
+        viewModelScope.launch (Dispatchers.IO){
+            repository.deleteAllBoodschap()
         }
     }
 }
