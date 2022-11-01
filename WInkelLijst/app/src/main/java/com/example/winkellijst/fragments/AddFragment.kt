@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
     private lateinit var mBoodschapViewModel: BoodschapViewmodel
+    private var itemsList = emptyList<Boodschap>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,19 +36,29 @@ class AddFragment : Fragment() {
 
     private fun insertItemToDataBase() {
         val itemDiscription = et_item.text.toString()
-        if (inputCheck(itemDiscription)){
-            val item = Boodschap(id=0,itemDiscription)
-            mBoodschapViewModel.addItem(item)
-            Toast.makeText(requireContext(),"Succesfully added!",Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_addFragment_to_listFragment)
-        }
-else{
-    Toast.makeText(requireContext(),"Fill in an item!", Toast.LENGTH_SHORT).show()
-        }
+        if (boodschapAllreadyExists(itemDiscription)) {
+            Toast.makeText(requireContext(), "Oei, ${itemDiscription} bestaat al !!!", Toast.LENGTH_SHORT)
+                .show()
+        } else
+            if (inputCheck(itemDiscription)) {
+                val item = Boodschap(id = 0, itemDiscription)
+                mBoodschapViewModel.addItem(item)
+                Toast.makeText(requireContext(), "Toegevoegd!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_addFragment_to_listFragment)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Oei er stond geen boodschap vermeld !!!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 
     private fun inputCheck(itemDiscription: String): Boolean {
-        return !(TextUtils.isEmpty(itemDiscription))
+        return (TextUtils.isEmpty(itemDiscription))
+    }
 
+    private fun boodschapAllreadyExists(itemDiscription: String):Boolean {
+        return !(mBoodschapViewModel.staatReedsInDeLijst(itemDiscription))
     }
 }

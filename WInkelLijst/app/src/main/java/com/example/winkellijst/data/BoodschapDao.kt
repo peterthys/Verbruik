@@ -18,4 +18,6 @@ interface BoodschapDao {
     @Query("DELETE FROM item_table")
     suspend fun deleteAllBoodschap()
 
+    @Query("SELECT EXISTS (SELECT 1 FROM item_table WHERE productsName = :productsName)")
+    fun staatReedsInDeLijst(productsName: String): Boolean
 }

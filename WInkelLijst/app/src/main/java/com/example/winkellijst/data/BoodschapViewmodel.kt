@@ -24,14 +24,28 @@ class BoodschapViewmodel(application: Application) : AndroidViewModel(applicatio
             repository.addItem(boodschap)
         }
     }
-    fun deleteBoodschap(boodschap: Boodschap){
-        viewModelScope.launch(Dispatchers.IO){
+
+    fun deleteBoodschap(boodschap: Boodschap) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.deleteBoodschap(boodschap)
         }
     }
-    fun deleteAllBoodschap(){
-        viewModelScope.launch (Dispatchers.IO){
+
+    fun deleteAllBoodschap() {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAllBoodschap()
         }
+    }
+
+    fun staatReedsInDeLijst(productsName: String): Boolean {
+        var exists: Boolean = false
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            exists = repository.staatReedsInDeLijst(productsName)
+
+
+        }
+        return exists
     }
 }

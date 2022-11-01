@@ -27,9 +27,6 @@ class ListAdapter (boodschap: Boodschap,
      {
         init {
             itemView.setOnClickListener (this)
-//            {
-//                setSingleSelection(adapterPosition)
-//            }
 
         }
 
@@ -38,7 +35,6 @@ class ListAdapter (boodschap: Boodschap,
              val dezeBoodschap = itemsList[position].productsName
              val boodschapId = itemsList[position].id
              val boodschapToDelete = Boodschap (boodschapId,dezeBoodschap)
-
 
              if (position != RecyclerView.NO_POSITION) {
 
@@ -76,20 +72,6 @@ class ListAdapter (boodschap: Boodschap,
         notifyDataSetChanged()
     }
 
-    private fun setSingleSelection(adapterPosition: Int) {
-        if (adapterPosition == RecyclerView.NO_POSITION) return
-        notifyItemChanged(singleitem_selection_position)
-        singleitem_selection_position = adapterPosition
-        notifyDataSetChanged()
-    }
-//    override fun onCreateDialog(savedInstanceState: Bundle?)
-//    fun deleteBoodschap(){
-//        override fun onCreatedialog
-//        val builder = AlertDialog.Builder(requireContext())
-//        builder.setPositionButton("yes") { _, _ ->
-//
-//        }
-//    }
     interface OnItemClickListener{
         fun onItemClick(boodschap: Boodschap)
     }

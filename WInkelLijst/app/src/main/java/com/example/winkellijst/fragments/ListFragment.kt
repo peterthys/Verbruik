@@ -35,7 +35,6 @@ class ListFragment : Fragment(), ListAdapter.OnItemClickListener {
         val recyclerView = view.rv_items
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         mBoodschapViewModel = ViewModelProvider(this).get(BoodschapViewmodel::class.java)
         mBoodschapViewModel.readAllItems.observe(
             viewLifecycleOwner,
@@ -46,8 +45,6 @@ class ListFragment : Fragment(), ListAdapter.OnItemClickListener {
             }
         )
         view.fab_add.setOnClickListener {
-
-            Toast.makeText(requireContext(), "Updated !", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
@@ -65,27 +62,25 @@ class ListFragment : Fragment(), ListAdapter.OnItemClickListener {
 
     fun deleteBoodschap() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton("alleen ${gekozenBoodschap.productsName} verwijderen") { _, _ ->
             mBoodschapViewModel.deleteBoodschap(boodschap = gekozenBoodschap)
             Toast.makeText(requireContext(), "${gekozenBoodschap.productsName} verwijderd", Toast.LENGTH_SHORT)
                 .show()
                 }
-        builder.setNegativeButton("No") { _, _ ->
+        builder.setNegativeButton("Alles verwijderen") { _, _ ->
             mBoodschapViewModel.deleteAllBoodschap()
             Toast.makeText(requireContext(), "Alles verwijderd", Toast.LENGTH_SHORT)
                 .show()
 
 
         }
-        builder.setTitle("Delete ${gekozenBoodschap.productsName}? (YES) or delete all items (NO)")
-        builder.setMessage("Are you sure to delete ${gekozenBoodschap.productsName}?")
+        builder.setTitle("Alleen ${gekozenBoodschap.productsName} verwijderen \nof alle boodschappen verwijderen ?")
+        builder.setMessage("")
         builder.create().show()
     }
 
     override fun onItemClick(boodschap: Boodschap) {
         gekozenBoodschap = boodschap
         deleteBoodschap()
-        Toast.makeText(requireContext(), "${boodschap.productsName} verwijderd", Toast.LENGTH_SHORT)
-            .show()
     }
 }

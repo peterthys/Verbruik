@@ -15,5 +15,10 @@ class BoodschapRepository(private val boodschapDao: BoodschapDao) {
     suspend fun deleteAllBoodschap() {
         boodschapDao.deleteAllBoodschap()
     }
+    fun staatReedsInDeLijst(productsName: String):Boolean{
+        val exists = boodschapDao.staatReedsInDeLijst(productsName)
+        return exists
+
+    }
 
 }
