@@ -38,14 +38,17 @@ class BoodschapViewmodel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun staatReedsInDeLijst(productsName: String): Boolean {
-        var exists: Boolean = false
-
-        viewModelScope.launch(Dispatchers.IO) {
-
-            exists = repository.staatReedsInDeLijst(productsName)
-
-
+//        var exists: Boolean = false
+//
+//        viewModelScope.launch(Dispatchers.IO) {
+//
+//            exists = repository.staatReedsInDeLijst(productsName)
+//
+//
+//        }
+//        return exists
+        val found = readAllItems.value?.find {
+            b -> b.productsName == productsName}
+            return found != null
         }
-        return exists
     }
-}

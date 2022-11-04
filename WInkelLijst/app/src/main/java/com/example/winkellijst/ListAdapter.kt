@@ -53,7 +53,7 @@ class ListAdapter (boodschap: Boodschap,
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         listFragment= ListFragment()
         val currentItem = itemsList[position]
-        holder.itemView.tv_id.text = currentItem.id.toString()
+        holder.itemView.tv_id.text = (position+1).toString()
         holder.itemView.tv_itemName.text = currentItem.productsName
         if (singleitem_selection_position == position) {
 

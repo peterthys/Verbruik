@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.winkellijst.R
@@ -17,14 +18,13 @@ import kotlinx.android.synthetic.main.fragment_add.view.*
 
 
 class AddFragment : Fragment() {
-    private lateinit var mBoodschapViewModel: BoodschapViewmodel
+    private val mBoodschapViewModel: BoodschapViewmodel by activityViewModels()
     private var itemsList = emptyList<Boodschap>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add, container, false)
-        mBoodschapViewModel = ViewModelProvider(this).get(BoodschapViewmodel::class.java)
 
         view.btn_add_to_list.setOnClickListener {
             insertItemToDataBase()
@@ -59,6 +59,6 @@ class AddFragment : Fragment() {
     }
 
     private fun boodschapAllreadyExists(itemDiscription: String):Boolean {
-        return !(mBoodschapViewModel.staatReedsInDeLijst(itemDiscription))
+        return (mBoodschapViewModel.staatReedsInDeLijst(itemDiscription))
     }
 }
