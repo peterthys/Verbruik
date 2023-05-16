@@ -2,15 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/MVVMShoppingList" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/MVVMShoppingList2" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/MultipleRoomTables" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Overzicht" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/android-kotlin-fundamentals-starter-apps" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/android-room-with-a-view" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/android-room-with-a-view2" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/android-room-with-a-view3" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/android-room-with-a-view4" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/sunflower" vcs="Git" />
   </component>
 </project>
