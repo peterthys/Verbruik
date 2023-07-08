@@ -55,7 +55,6 @@ class MemoryGame(private val boardSize: BoardSize) {
 
     fun isCardFaceUp(position: Int): Boolean {
         return cards[position].isFaceUp
-
     }
 
     fun getMoves(): Int {
