@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_vervruik1"
+        android:id="@+id/tv_verbruik1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
@@ -33,9 +33,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="96dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="44dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/tv_vervruik1"
+        app:layout_constraintStart_toEndOf="@+id/tv_verbruik1"
         app:layout_constraintTop_toBottomOf="@+id/tv_datum" />
 
     <TextView

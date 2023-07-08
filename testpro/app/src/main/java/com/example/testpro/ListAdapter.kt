@@ -32,13 +32,13 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentVerbruik = verbruiksList[position]
-        holder.itemView.findViewById<TextView>(R.id.tv_datum).text = "1000"
-        holder.itemView.findViewById<TextView>(R.id.tv_vervruik1).text =
+        holder.itemView.findViewById<TextView>(R.id.tv_datum).text = currentVerbruik.datum
+        holder.itemView.findViewById<TextView>(R.id.tv_verbruik1).text =
             currentVerbruik.pils.toString()
         holder.itemView.findViewById<TextView>(R.id.tv_verbruik2).text = "3"
         holder.itemView.findViewById<TextView>(R.id.tv__resultaat).text = "4"
 
-        holder.itemView.findViewById<TextView>(R.id.tv_vervruik1).text =
+        holder.itemView.findViewById<TextView>(R.id.tv_verbruik1).text =
             currentVerbruik.datum.toString()
 
         holder.itemView.findViewById<ConstraintLayout>(R.id.rowLayout).setOnClickListener {
