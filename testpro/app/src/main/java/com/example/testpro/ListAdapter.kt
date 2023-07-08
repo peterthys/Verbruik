@@ -35,11 +35,13 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.findViewById<TextView>(R.id.tv_datum).text = currentVerbruik.datum
         holder.itemView.findViewById<TextView>(R.id.tv_verbruik1).text =
             currentVerbruik.pils.toString()
-        holder.itemView.findViewById<TextView>(R.id.tv_verbruik2).text = "3"
-        holder.itemView.findViewById<TextView>(R.id.tv__resultaat).text = "4"
-
-        holder.itemView.findViewById<TextView>(R.id.tv_verbruik1).text =
-            currentVerbruik.datum.toString()
+        holder.itemView.findViewById<TextView>(R.id.tv_verbruik2).text =
+            currentVerbruik.duvel.toString()
+        holder.itemView.findViewById<TextView>(R.id.tv__resultaat).text =
+            currentVerbruik.wijn.toString()
+//
+//        holder.itemView.findViewById<TextView>(R.id.tv_verbruik1).text =
+//            currentVerbruik.datum.toString()
 
         holder.itemView.findViewById<ConstraintLayout>(R.id.rowLayout).setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentVerbruik)

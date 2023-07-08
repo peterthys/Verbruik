@@ -78,7 +78,7 @@ private lateinit var mVerbruikViewModel : VerbruiksViewModel
 //        if (aantalAnder==""){
 //            aantalAnder = 0.toString()
 //        }
-val verbrruik = Verbruik(datum,1,1,1,1,1,1,0)
+val verbruik = Verbruik(datum,1,2,3,1,1,1,0)
 //        val verbruik = Verbruik(
 //            datum,
 //            (aantalPilsVoorDatabase),
@@ -89,7 +89,7 @@ val verbrruik = Verbruik(datum,1,1,1,1,1,1,0)
 //            (aantalAnderVoorDatabase),
 //            0
 //        )
-        mVerbruikViewModel.addVerbruik(verbrruik)
+        mVerbruikViewModel.addVerbruik(verbruik)
         Toast.makeText(requireContext(),"Succesfully added !",Toast.LENGTH_LONG).show()
     }
 
