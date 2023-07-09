@@ -75,13 +75,13 @@ class AddFragment : Fragment() {
         if (TextUtils.isEmpty(aantalWestmalle)) {
             aantalWestmalleVoorDatabase = 0
         } else
-            aantalWestmalleVoorDatabase = Integer.parseInt(aantalPils.toString())
+            aantalWestmalleVoorDatabase = Integer.parseInt(aantalWestmalle.toString())
 
         var aantalWijn = view?.findViewById<EditText>(R.id.addWijn)?.text.toString()
         if (TextUtils.isEmpty(aantalWijn)) {
             aantalWijnVoorDatabase = 0
         } else
-            aantalWijnVoorDatabase = Integer.parseInt(aantalPils.toString())
+            aantalWijnVoorDatabase = Integer.parseInt(aantalWijn.toString())
 
         var aantalKwak = view?.findViewById<EditText>(R.id.addKwak)?.text.toString()
         if (TextUtils.isEmpty(aantalKwak)) {

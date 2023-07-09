@@ -33,25 +33,23 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
 
         val currentVerbruik = verbruiksList[position]
         holder.itemView.findViewById<TextView>(R.id.tv_datum).text = currentVerbruik.datum
-      val  pilsVerbruik = currentVerbruik.pils
+
+        val pilsVerbruik = currentVerbruik.pils
         holder.itemView.findViewById<TextView>(R.id.tv_verbruik1).text =
             "pils : $pilsVerbruik"
-        val  duvelVerbruik = currentVerbruik.duvel
+
+        val duvelVerbruik = currentVerbruik.duvel
         holder.itemView.findViewById<TextView>(R.id.tv_verbruik2).text =
-            "duvel  :  $duvelVerbruik"
-        holder.itemView.findViewById<TextView>(R.id.tv__resultaat).text =
-            currentVerbruik.wijn.toString()
-//
-//        holder.itemView.findViewById<TextView>(R.id.tv_verbruik1).text =
-//            currentVerbruik.datum.toString()
+            "duvel : $duvelVerbruik"
+
+        val resultaat = currentVerbruik.wijn
+        holder.itemView.findViewById<TextView>(R.id.tv_resultaat).text =
+            "$resultaat"
 
         holder.itemView.findViewById<ConstraintLayout>(R.id.rowLayout).setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentVerbruik)
             holder.itemView.findNavController().navigate(action)
         }
-//        holder.itemView.findViewById<TextView>(R.id.tv_verbruik2).text = currentVerbruik.datum.toString()
-//        holder.itemView.findViewById<TextView>(R.id.tv__resultaat).text = currentVerbruik.datum.toString()
-
     }
 
     fun setData(verbruiksLijst: List<Verbruik>) {
