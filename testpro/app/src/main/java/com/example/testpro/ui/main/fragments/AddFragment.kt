@@ -37,11 +37,11 @@ class AddFragment : Fragment() {
         val dateTime = dateFormat.format(dateOfYear.time).toString()
         val datum = view?.findViewById<TextView>(R.id.addDatum)
         datum?.text = dateTime
-        val verbruiksDatum = dateTime
+      //  val verbruiksDatum = dateTime
 
         val btn = view.findViewById<Button>(R.id.add_button)
         btn.setOnClickListener {
-            addVerbruikToDatabase(verbruiksDatum)
+            addVerbruikToDatabase(dateTime)
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
 
@@ -59,6 +59,7 @@ class AddFragment : Fragment() {
 
 
         val datum = verbruiksDatum
+
         val aantalPils = view?.findViewById<EditText>(R.id.addPils)?.text
         if (TextUtils.isEmpty(aantalPils)) {
             aantalPilsVoorDatabase = 0
@@ -68,8 +69,9 @@ class AddFragment : Fragment() {
         val aantalDuvel = (view?.findViewById<EditText>(R.id.addDuvel)?.text)
         if (TextUtils.isEmpty(aantalDuvel)) {
             aantalDuvelVoorDatabase = 0
-        } else
-            aantalDuvelVoorDatabase = Integer.parseInt(aantalPils.toString())
+        } else {
+            aantalDuvelVoorDatabase = Integer.parseInt(aantalDuvel.toString())
+        }
 
         var aantalWestmalle = view?.findViewById<EditText>(R.id.addWestmalle)?.text.toString()
         if (TextUtils.isEmpty(aantalWestmalle)) {
@@ -87,13 +89,13 @@ class AddFragment : Fragment() {
         if (TextUtils.isEmpty(aantalKwak)) {
             aantalKwakVoorDatabase = 0
         } else
-            aantalKwakVoorDatabase = Integer.parseInt(aantalPils.toString())
+            aantalKwakVoorDatabase = Integer.parseInt(aantalKwak.toString())
 
         var aantalAnder = view?.findViewById<EditText>(R.id.addAnder)?.text.toString()
         if (TextUtils.isEmpty(aantalAnder)) {
             aantalAnderVoorDatabase = 0
         } else
-            aantalAnderVoorDatabase = Integer.parseInt(aantalPils.toString())
+            aantalAnderVoorDatabase = Integer.parseInt(aantalAnder.toString())
 
         val verbruik =
             Verbruik(
