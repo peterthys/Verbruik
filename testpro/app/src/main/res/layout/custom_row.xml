@@ -19,32 +19,72 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_verbruik1"
+        android:id="@+id/tv_pils"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="22dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_datum"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_duvel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="22dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tv_datum"
         app:layout_constraintTop_toBottomOf="@+id/tv_datum" />
 
     <TextView
-        android:id="@+id/tv_verbruik2"
+        android:id="@+id/tv_wijn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="22dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/tv_verbruik1"
-        app:layout_constraintTop_toBottomOf="@+id/tv_datum" />
+        app:layout_constraintStart_toEndOf="@+id/tv_datum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_duvel" />
+
+    <TextView
+        android:id="@+id/tv_westmalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="22dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tv_datum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_wijn" />
+
+    <TextView
+        android:id="@+id/tv_kwak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="22dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tv_datum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_westmalle" />
+
+    <TextView
+        android:id="@+id/tv_ander"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="22dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tv_datum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kwak" />
 
     <TextView
         android:id="@+id/tv_resultaat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="22dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_datum" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,11 +35,11 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.findViewById<TextView>(R.id.tv_datum).text = currentVerbruik.datum
 
         val pilsVerbruik = currentVerbruik.pils
-        holder.itemView.findViewById<TextView>(R.id.tv_verbruik1).text =
+        holder.itemView.findViewById<TextView>(R.id.tv_pils).text =
             "pils : $pilsVerbruik"
 
         val duvelVerbruik = currentVerbruik.duvel
-        holder.itemView.findViewById<TextView>(R.id.tv_verbruik2).text =
+        holder.itemView.findViewById<TextView>(R.id.tv_duvel).text =
             "duvel : $duvelVerbruik"
 
         val resultaat = currentVerbruik.wijn
