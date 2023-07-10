@@ -30,17 +30,53 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        val i = 0
         val currentVerbruik = verbruiksList[position]
         holder.itemView.findViewById<TextView>(R.id.tv_datum).text = currentVerbruik.datum
 
         val pilsVerbruik = currentVerbruik.pils
-        holder.itemView.findViewById<TextView>(R.id.tv_pils).text =
-            "pils : $pilsVerbruik"
+        if (pilsVerbruik == 0) {
+            holder.itemView.findViewById<TextView>(R.id.tv_pils).visibility = GONE
+        } else {
+            holder.itemView.findViewById<TextView>(R.id.tv_pils).text =
+                "pils : $pilsVerbruik"
+        }
 
         val duvelVerbruik = currentVerbruik.duvel
-        holder.itemView.findViewById<TextView>(R.id.tv_duvel).text =
-            "duvel : $duvelVerbruik"
+        if (duvelVerbruik == 0) {
+            holder.itemView.findViewById<TextView>(R.id.tv_duvel).visibility = GONE
+        } else {
+            holder.itemView.findViewById<TextView>(R.id.tv_duvel).text =
+                "duvel : $duvelVerbruik"
+        }
+
+        val wijnVerbruik = currentVerbruik.wijn
+        if (wijnVerbruik == 0) {
+            holder.itemView.findViewById<TextView>(R.id.tv_wijn).visibility = GONE
+        } else
+            holder.itemView.findViewById<TextView>(R.id.tv_wijn).text =
+                "wijn : $wijnVerbruik"
+
+        val westmalleVerbruik = currentVerbruik.westmalle
+        if (westmalleVerbruik == 0) {
+            holder.itemView.findViewById<TextView>(R.id.tv_westmalle).visibility = GONE
+        } else
+            holder.itemView.findViewById<TextView>(R.id.tv_westmalle).text =
+                "westmalle : $westmalleVerbruik"
+
+        val kwakVerbruik = currentVerbruik.kwak
+        if (kwakVerbruik == 0) {
+            holder.itemView.findViewById<TextView>(R.id.tv_kwak).visibility = GONE
+        } else
+            holder.itemView.findViewById<TextView>(R.id.tv_kwak).text =
+                "kwak : $kwakVerbruik"
+
+        val anderVerbruik = currentVerbruik.ander
+        if (anderVerbruik == 0) {
+            holder.itemView.findViewById<TextView>(R.id.tv_ander).visibility = GONE
+        } else
+            holder.itemView.findViewById<TextView>(R.id.tv_ander).text =
+                "ander : $anderVerbruik"
 
         val resultaat = currentVerbruik.wijn
         holder.itemView.findViewById<TextView>(R.id.tv_resultaat).text =
