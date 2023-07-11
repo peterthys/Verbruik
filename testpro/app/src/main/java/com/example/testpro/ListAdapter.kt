@@ -30,11 +30,13 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val i = 0
+        var resultaat = 0
         val currentVerbruik = verbruiksList[position]
         holder.itemView.findViewById<TextView>(R.id.tv_datum).text = currentVerbruik.datum
 
+
         val pilsVerbruik = currentVerbruik.pils
+        resultaat = resultaat + (pilsVerbruik * 108)
         if (pilsVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_pils).visibility = GONE
         } else {
@@ -43,7 +45,8 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
         }
 
         val duvelVerbruik = currentVerbruik.duvel
-        if (duvelVerbruik == 0) {
+        resultaat = resultaat + (duvelVerbruik * 211)
+                if (duvelVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_duvel).visibility = GONE
         } else {
             holder.itemView.findViewById<TextView>(R.id.tv_duvel).text =
@@ -51,36 +54,40 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
         }
 
         val wijnVerbruik = currentVerbruik.wijn
-        if (wijnVerbruik == 0) {
+        resultaat = resultaat + ( wijnVerbruik * 140 )
+                if (wijnVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_wijn).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_wijn).text =
                 "wijn : $wijnVerbruik"
 
         val westmalleVerbruik = currentVerbruik.westmalle
-        if (westmalleVerbruik == 0) {
+        resultaat = resultaat + ( westmalleVerbruik * 245 )
+                if (westmalleVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_westmalle).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_westmalle).text =
                 "westmalle : $westmalleVerbruik"
 
         val kwakVerbruik = currentVerbruik.kwak
-        if (kwakVerbruik == 0) {
+        resultaat = resultaat + ( kwakVerbruik * 214 )
+                if (kwakVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_kwak).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_kwak).text =
                 "kwak : $kwakVerbruik"
 
         val anderVerbruik = currentVerbruik.ander
-        if (anderVerbruik == 0) {
+        resultaat = resultaat + anderVerbruik
+                if (anderVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_ander).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_ander).text =
                 "ander : $anderVerbruik"
 
-        val resultaat = currentVerbruik.wijn
+
         holder.itemView.findViewById<TextView>(R.id.tv_resultaat).text =
-            "$resultaat"
+            "$resultaat kcal"
 
         holder.itemView.findViewById<ConstraintLayout>(R.id.rowLayout).setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentVerbruik)
