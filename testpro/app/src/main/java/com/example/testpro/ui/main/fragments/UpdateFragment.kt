@@ -42,7 +42,8 @@ class UpdateFragment : Fragment() {
         view.findViewById<Button>(R.id.delete_button).setOnClickListener {
   //          val updateDatum = args.currentVerbruik.datum
  //           updateVerbruik(updateDatum)
-            val verbruikToDelete = Verbruik(args.currentVerbruik.datum,
+            val verbruikToDelete = Verbruik(
+                args.currentVerbruik.datum,
                 args.currentVerbruik.pils,
                 args.currentVerbruik.duvel,
                 args.currentVerbruik.wijn,

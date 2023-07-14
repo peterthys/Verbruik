@@ -44,6 +44,10 @@ class AddFragment : Fragment() {
             addVerbruikToDatabase(dateTime)
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
+        val anderView = view.findViewById<EditText>(R.id.addAnder)
+        anderView.setOnClickListener{
+            findNavController().navigate(R.id.action_addFragment_to_anderFragment)
+        }
 
 
         return view

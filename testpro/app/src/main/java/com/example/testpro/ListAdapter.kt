@@ -46,7 +46,7 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
 
         val duvelVerbruik = currentVerbruik.duvel
         resultaat = resultaat + (duvelVerbruik * 211)
-                if (duvelVerbruik == 0) {
+        if (duvelVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_duvel).visibility = GONE
         } else {
             holder.itemView.findViewById<TextView>(R.id.tv_duvel).text =
@@ -54,24 +54,24 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
         }
 
         val wijnVerbruik = currentVerbruik.wijn
-        resultaat = resultaat + ( wijnVerbruik * 140 )
-                if (wijnVerbruik == 0) {
+        resultaat = resultaat + (wijnVerbruik * 140)
+        if (wijnVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_wijn).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_wijn).text =
                 "wijn : $wijnVerbruik"
 
         val westmalleVerbruik = currentVerbruik.westmalle
-        resultaat = resultaat + ( westmalleVerbruik * 245 )
-                if (westmalleVerbruik == 0) {
+        resultaat = resultaat + (westmalleVerbruik * 245)
+        if (westmalleVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_westmalle).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_westmalle).text =
                 "westmalle : $westmalleVerbruik"
 
         val kwakVerbruik = currentVerbruik.kwak
-        resultaat = resultaat + ( kwakVerbruik * 214 )
-                if (kwakVerbruik == 0) {
+        resultaat = resultaat + (kwakVerbruik * 214)
+        if (kwakVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_kwak).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_kwak).text =
@@ -79,7 +79,7 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
 
         val anderVerbruik = currentVerbruik.ander
         resultaat = resultaat + anderVerbruik
-                if (anderVerbruik == 0) {
+        if (anderVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_ander).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_ander).text =

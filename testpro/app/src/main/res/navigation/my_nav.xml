@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_addFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_addFragment_to_anderFragment"
+            app:destination="@id/anderFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
@@ -37,5 +40,15 @@
         <argument
             android:name="currentVerbruik"
             app:argType="com.example.testpro.Verbruik" />
+    </fragment>
+    <fragment
+        android:id="@+id/anderFragment"
+        android:name="com.example.testpro.ui.main.fragments.AnderFragment"
+        android:label="AnderFragment">
+        <action
+            android:id="@+id/action_anderFragment_to_addFragment"
+            app:destination="@+id/addFragment"/>
+
+
     </fragment>
 </navigation>
