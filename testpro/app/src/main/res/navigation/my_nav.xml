@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_addFragment_to_anderFragment"
             app:destination="@id/anderFragment" />
+        <argument
+            android:name="currentAnder"
+            app:argType="com.example.testpro.Ander" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
