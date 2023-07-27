@@ -6,8 +6,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize // nodig om data over te brengen
 data class Ander(
     val name: String,
-    val aantalGlazen: Int,
-    val aantal25: Int,
-    val aantal33: Int,
+    var glazen: Int,
+    var cl25: Int,
+    var cl33: Int,
+    var aantal: Int,
     val caloriePerHonderdMl: Int
-): Parcelable // nodig om data over te brengen
+) : Parcelable // nodig om data over te brengen
