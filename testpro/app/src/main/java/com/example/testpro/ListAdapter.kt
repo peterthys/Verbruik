@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.*
 import com.example.testpro.ui.main.fragments.ListFragment
 import com.example.testpro.ui.main.fragments.ListFragmentDirections
 
+
 class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
 
     private var verbruiksList = emptyList<Verbruik>()

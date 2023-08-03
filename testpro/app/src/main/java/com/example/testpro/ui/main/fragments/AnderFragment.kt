@@ -65,7 +65,7 @@ class AnderFragment : Fragment() {
         }
 
         currentAnder =
-            Ander(currentName, 1, 1, 1, aantal, cal)
+            Ander(currentName, currentAnder.glazen,  currentAnder.cl25,  currentAnder.cl33, aantal, cal)
     }
 
 

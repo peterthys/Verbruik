@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.testpro.R
 import com.example.testpro.Verbruik
 
@@ -23,7 +24,7 @@ import java.util.Calendar
 class AddFragment : Fragment() {
 
     private lateinit var mVerbruikViewModel: VerbruiksViewModel
-
+    private val args by navArgs<AddFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
