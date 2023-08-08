@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.testpro.Ander
 import com.example.testpro.R
@@ -55,10 +57,10 @@ class AnderFragment : Fragment() {
         } else
             cal = Integer.parseInt(currentCal.toString())
 
-        if (onRadioButtonClicked(view)==1){
+        if (onRadioButtonClicked()==1){
             currentAnder.glazen = 1
         }else
-            if (onRadioButtonClicked(view)==2){
+            if (onRadioButtonClicked()==2){
             currentAnder.cl25 = 1
         }else {
             currentAnder.cl33 = 1
@@ -66,34 +68,50 @@ class AnderFragment : Fragment() {
 
         currentAnder =
             Ander(currentName, currentAnder.glazen,  currentAnder.cl25,  currentAnder.cl33, aantal, cal)
+
+        val terugButton = view?.findViewById<Button>(R.id.bt_return_to_add)
+        if (terugButton != null) {
+            terugButton.setOnClickListener(){
+                val action = AnderFragmentDirections.actionAnderFragmentToAddFragment(currentAnder)
+                view?.let { it1 -> Navigation.findNavController(it1).navigate(action) }
+            }
+        }
     }
 
 
-    fun onRadioButtonClicked(view: View?): Int {
+    private fun onRadioButtonClicked(): Int {
 
 
         var keuze: Int = 0
-        if (view is RadioButton) {
-            // Is the button now checked?
-            val checked = view.isChecked
+        val keuzeglas = view?.findViewById<Button>(R.id.radio_glas)
+        if (keuzeglas != null) {
+            keuzeglas.setOnClickListener{
+                keuze=1
 
-
-            // Check which radio button was clicked
-            when (view.getId()) {
-                R.id.radio_glas ->
-                    if (checked) {
-                        keuze = 1
-                    }
-                R.id.radio_25 ->
-                    if (checked) {
-                        keuze = 2
-                    }
-                R.id.radio_33 ->
-                    if (checked) {
-                        keuze = 3
-                    }
+            }
         }
-    }
+
+//        if (view is RadioButton) {
+//            // Is the button now checked?
+//            val checked = view.isChecked
+//
+//
+//            // Check which radio button was clicked
+//            when (view.getId()) {
+//                R.id.radio_glas ->
+//                    if (checked) {
+//                        keuze = 1
+//                    }
+//                R.id.radio_25 ->
+//                    if (checked) {
+//                        keuze = 2
+//                    }
+//                R.id.radio_33 ->
+//                    if (checked) {
+//                        keuze = 3
+//                    }
+//        }
+//    }
         return keuze
     }
 }

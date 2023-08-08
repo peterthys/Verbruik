@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="AnderFragment">
+    tools:context=".ui.main.fragments.AnderFragment">
 
     <TextView
         android:id="@+id/tv_titel"
@@ -84,21 +84,21 @@
             android:id="@+id/radio_glas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
+
             android:text="glas" />
 
         <RadioButton
             android:id="@+id/radio_25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
+
             android:text="25cl" />
 
         <RadioButton
             android:id="@+id/radio_33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
+
             android:text="33cl" />
     </RadioGroup>
 

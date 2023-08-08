@@ -39,7 +39,7 @@ class UpdateFragment : Fragment() {
         view.findViewById<TextView>(R.id.updateWestmalle)
             .setText(args.currentVerbruik.westmalle.toString())
         view.findViewById<TextView>(R.id.updateWijn).setText(args.currentVerbruik.wijn.toString())
-        view.findViewById<TextView>(R.id.updateAnder).setText(args.currentVerbruik.ander.toString())
+        view.findViewById<TextView>(R.id.updateAnder).setText(args.currentVerbruik.anderNaam.toString())
 //..............................................................................................................................................
 
         view.findViewById<Button>(R.id.update_pasAan_button).setOnClickListener {
@@ -62,7 +62,10 @@ class UpdateFragment : Fragment() {
                 args.currentVerbruik.wijn,
                 args.currentVerbruik.westmalle,
                 args.currentVerbruik.kwak,
-                args.currentVerbruik.ander,
+                args.currentVerbruik.anderAantal,
+                args.currentVerbruik.anderNaam,
+                args.currentVerbruik.anderInhoud,
+                args.currentVerbruik.anderCalorie,
                 args.currentVerbruik.id
             )
             mVerbruikViewModel.deleteVerbruik(verbruikToDelete)
@@ -81,6 +84,7 @@ class UpdateFragment : Fragment() {
         var aantalWestMalle = 0
         var aantalKwak = 0
         var aantalAnder = 0
+
 
         val aantalPilsFound =
             view?.findViewById<EditText>(R.id.updatePils)?.text.toString()
@@ -125,7 +129,9 @@ class UpdateFragment : Fragment() {
             aantalAnder = 0
 
         val updatedVerbruik = Verbruik(
-            datum, aantalPils, aantalDuvel, aantalWijn, aantalWestMalle, aantalKwak, aantalAnder, 0)
+            datum, aantalPils, aantalDuvel, aantalWijn, aantalWestMalle, aantalKwak, aantalAnder, args.currentVerbruik.anderNaam, args.currentVerbruik.anderAantal,
+            args.currentVerbruik.anderInhoud,
+            args.currentVerbruik.anderCalorie)
 
         return updatedVerbruik
     }

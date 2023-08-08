@@ -78,13 +78,13 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
             holder.itemView.findViewById<TextView>(R.id.tv_kwak).text =
                 "kwak : $kwakVerbruik"
 
-        val anderVerbruik = currentVerbruik.ander
-        resultaat = resultaat + anderVerbruik
+        val anderVerbruik = currentVerbruik.anderAantal
+        resultaat = resultaat + (anderVerbruik * currentVerbruik.anderCalorie * currentVerbruik.anderInhoud)
         if (anderVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_ander).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_ander).text =
-                "ander : $anderVerbruik"
+                "${currentVerbruik.anderNaam} : $anderVerbruik"
 
 
         holder.itemView.findViewById<TextView>(R.id.tv_resultaat).text =

@@ -24,21 +24,34 @@ import java.util.Calendar
 class AddFragment : Fragment() {
 
     private lateinit var mVerbruikViewModel: VerbruiksViewModel
-    private val args by navArgs<AddFragmentArgs>()
+    private val args : AddFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_add, container, false)
         mVerbruikViewModel = ViewModelProvider(this).get(VerbruiksViewModel::class.java)
 
-        val view = inflater.inflate(R.layout.fragment_add, container, false)
+
+//        var glazenAnder = args.currentAnder.glazen
+//        var cl25Ander = args.currentAnder.cl25
+//        var cl33Ander = args.currentAnder.cl33
+//        var aantAnder = args.currentAnder.aantal
+//        var calAnder = args.currentAnder.caloriePerHonderdMl
 
         val dateOfYear = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("dd/MM")
         val dateTime = dateFormat.format(dateOfYear.time).toString()
         val datum = view?.findViewById<TextView>(R.id.addDatum)
         datum?.text = dateTime
-      //  val verbruiksDatum = dateTime
+        //  val verbruiksDatum = dateTime
+val anderName = args.currentAnder.name
+//        if ((args.currentAnder.name) !== "0")
+//        {
+//            val textView = view?.findViewById<EditText>(R.id.addDatum)
+//
+//            textView?.setText(args.currentAnder.name).toString()
+//        }
 
         val btn = view.findViewById<Button>(R.id.add_button)
         btn.setOnClickListener {
@@ -46,7 +59,7 @@ class AddFragment : Fragment() {
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
         val anderView = view.findViewById<EditText>(R.id.addAnder)
-        anderView.setOnClickListener{
+        anderView.setOnClickListener {
             findNavController().navigate(R.id.action_addFragment_to_anderFragment)
         }
 
@@ -61,6 +74,8 @@ class AddFragment : Fragment() {
         var aantalWestmalleVoorDatabase = 0
         var aantalKwakVoorDatabase = 0
         var aantalAnderVoorDatabase = 0
+
+
 
 
         val datum = verbruiksDatum
@@ -111,7 +126,11 @@ class AddFragment : Fragment() {
                 aantalWestmalleVoorDatabase,
                 aantalKwakVoorDatabase,
                 aantalAnderVoorDatabase,
+                "ander",
+                0,
+                0,
                 0
+
             )
 
         mVerbruikViewModel.addVerbruik(verbruik)

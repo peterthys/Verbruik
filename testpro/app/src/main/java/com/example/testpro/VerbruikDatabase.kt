@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [Verbruik::class],
-    version = 1
+    version = 2
 )
 abstract class VerbruiksDatabase() : RoomDatabase() {
 
@@ -28,7 +28,8 @@ abstract class VerbruiksDatabase() : RoomDatabase() {
                     context.applicationContext,
                     VerbruiksDatabase::class.java,
                     "verbruik_database"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }
