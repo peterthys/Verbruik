@@ -55,7 +55,7 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
         }
 
         val wijnVerbruik = currentVerbruik.wijn
-        resultaat = resultaat + (wijnVerbruik * 140)
+        resultaat += (wijnVerbruik * 140)
         if (wijnVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_wijn).visibility = GONE
         } else
@@ -63,7 +63,7 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
                 "wijn : $wijnVerbruik"
 
         val westmalleVerbruik = currentVerbruik.westmalle
-        resultaat = resultaat + (westmalleVerbruik * 245)
+        resultaat += (westmalleVerbruik * 245)
         if (westmalleVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_westmalle).visibility = GONE
         } else
@@ -71,7 +71,7 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
                 "westmalle : $westmalleVerbruik"
 
         val kwakVerbruik = currentVerbruik.kwak
-        resultaat = resultaat + (kwakVerbruik * 214)
+        resultaat += (kwakVerbruik * 214)
         if (kwakVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_kwak).visibility = GONE
         } else
@@ -79,7 +79,7 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
                 "kwak : $kwakVerbruik"
 
         val anderVerbruik = currentVerbruik.anderAantal
-        resultaat = resultaat + (anderVerbruik * currentVerbruik.anderCalorie * currentVerbruik.anderInhoud)
+        resultaat += (anderVerbruik * currentVerbruik.anderCalorie * currentVerbruik.anderInhoud)
         if (anderVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_ander).visibility = GONE
         } else

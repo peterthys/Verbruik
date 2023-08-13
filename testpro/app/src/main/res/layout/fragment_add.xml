@@ -90,14 +90,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addWestmalle" />
 
-    <EditText
+    <TextView
         android:id="@+id/addAnder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="numberSigned"
-        android:hint="klik voor een ANDER"
+        android:hint="klik voor een ANDER bier"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -108,12 +107,79 @@
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="144dp"
         android:text="VOEG TOE"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addAnder" />
+
+    <EditText
+        android:id="@+id/addAnder_naam"
+        android:layout_width="96dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="08dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginLeft="64dp"
+        android:hint="naam drank"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addKwak" />
+
+    <Button
+        android:id="@+id/addAnder_glas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="glas"
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="312dp"
+        app:layout_constraintTop_toBottomOf="@+id/addKwak"
+        app:layout_constraintStart_toEndOf="@id/addAnder_naam"/>
+
+    <Button
+        android:id="@+id/addAnder_cl25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="25cl"
+        app:layout_constraintTop_toBottomOf="@+id/addAnder_glas"
+        app:layout_constraintStart_toEndOf="@id/addAnder_naam"
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="360dp" />
+
+    <EditText
+        android:id="@+id/addAnder_cal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Kcal/100ml"
+        android:textSize="16dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/addKwak"
+        app:layout_constraintStart_toEndOf="@id/addAnder_glas"
+        tools:layout_editor_absoluteX="261dp"
+        tools:layout_editor_absoluteY="326dp" />
+
+    <EditText
+        android:id="@+id/addAnder_aantal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="aantal"
+        android:textSize="16dp"
+        android:layout_marginTop="0dp"
+        tools:layout_editor_absoluteX="323dp"
+        tools:layout_editor_absoluteY="328dp"
+        app:layout_constraintTop_toBottomOf="@+id/addKwak"
+        app:layout_constraintStart_toEndOf="@id/addAnder_cal"/>
+
+    <Button
+        android:id="@+id/addAnder_cl33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="33cl"
+        app:layout_constraintTop_toBottomOf="@+id/addAnder_cl25"
+        app:layout_constraintStart_toEndOf="@id/addAnder_naam"
+        tools:layout_editor_absoluteX="170dp"
+        tools:layout_editor_absoluteY="413dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

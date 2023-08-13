@@ -24,7 +24,8 @@ import java.util.Calendar
 class AddFragment : Fragment() {
 
     private lateinit var mVerbruikViewModel: VerbruiksViewModel
-    private val args : AddFragmentArgs by navArgs()
+
+    // private val args : AddFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,23 +45,37 @@ class AddFragment : Fragment() {
         val dateTime = dateFormat.format(dateOfYear.time).toString()
         val datum = view?.findViewById<TextView>(R.id.addDatum)
         datum?.text = dateTime
-        //  val verbruiksDatum = dateTime
-val anderName = args.currentAnder.name
-//        if ((args.currentAnder.name) !== "0")
-//        {
-//            val textView = view?.findViewById<EditText>(R.id.addDatum)
-//
-//            textView?.setText(args.currentAnder.name).toString()
-//        }
+
+        val anderNaam = view.findViewById<EditText>(R.id.addAnder_naam)
+        val anderGlas = view.findViewById<Button>(R.id.addAnder_glas)
+        val andercl25 = view.findViewById<Button>(R.id.addAnder_cl25)
+        val andercl33 = view.findViewById<Button>(R.id.addAnder_cl33)
+        val anderCal = view.findViewById<EditText>(R.id.addAnder_cal)
+        val anderAantal = view.findViewById<EditText>(R.id.addAnder_aantal)
+        anderNaam.visibility = View.GONE
+        anderGlas.visibility = View.GONE
+        andercl25.visibility = View.GONE
+        andercl33.visibility = View.GONE
+        anderCal.visibility = View.GONE
+        anderAantal.visibility = View.GONE
+
 
         val btn = view.findViewById<Button>(R.id.add_button)
         btn.setOnClickListener {
             addVerbruikToDatabase(dateTime)
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
-        val anderView = view.findViewById<EditText>(R.id.addAnder)
+        val anderView = view.findViewById<TextView>(R.id.addAnder)
         anderView.setOnClickListener {
-            findNavController().navigate(R.id.action_addFragment_to_anderFragment)
+            anderView.visibility = View.GONE
+            anderNaam.visibility = View.VISIBLE
+            anderGlas.visibility = View.VISIBLE
+            andercl25.visibility = View.VISIBLE
+            andercl33.visibility = View.VISIBLE
+            anderCal.visibility = View.VISIBLE
+            anderAantal.visibility = View.VISIBLE
+
+//            findNavController().navigate(R.id.action_addFragment_to_anderFragment)
         }
 
 
@@ -74,8 +89,9 @@ val anderName = args.currentAnder.name
         var aantalWestmalleVoorDatabase = 0
         var aantalKwakVoorDatabase = 0
         var aantalAnderVoorDatabase = 0
-
-
+        var naamAnderVoorDatabase = ""
+        var inhoudAnderVoorDatabase : Double = 2.5
+        var calAnderVoorDatabase = 0
 
 
         val datum = verbruiksDatum
@@ -111,11 +127,38 @@ val anderName = args.currentAnder.name
         } else
             aantalKwakVoorDatabase = Integer.parseInt(aantalKwak.toString())
 
-        var aantalAnder = view?.findViewById<EditText>(R.id.addAnder)?.text.toString()
+        var aantalAnder = view?.findViewById<EditText>(R.id.addAnder_aantal)?.text.toString()
         if (TextUtils.isEmpty(aantalAnder)) {
             aantalAnderVoorDatabase = 0
         } else
             aantalAnderVoorDatabase = Integer.parseInt(aantalAnder.toString())
+
+        var naamAnder = view?.findViewById<EditText>(R.id.addAnder_naam)?.text.toString()
+        if (TextUtils.isEmpty(naamAnder)) {
+            naamAnderVoorDatabase = ""
+        } else
+            naamAnderVoorDatabase = naamAnder
+
+        val anderGlas = view?.findViewById<Button>(R.id.addAnder_glas)
+        val andercl25 = view?.findViewById<Button>(R.id.addAnder_cl25)
+        val andercl33 = view?.findViewById<Button>(R.id.addAnder_cl33)
+
+
+        anderGlas?.setOnClickListener {
+            inhoudAnderVoorDatabase = 1.20
+        }
+        andercl25?.setOnClickListener {
+            inhoudAnderVoorDatabase = 2.50
+        }
+        andercl33?.setOnClickListener {
+            inhoudAnderVoorDatabase = 3.30
+        }
+
+        var anderCal = view?.findViewById<EditText>(R.id.addAnder_cal)?.text.toString()
+        if (TextUtils.isEmpty(anderCal)) {
+            calAnderVoorDatabase = 0
+        } else
+            calAnderVoorDatabase = Integer.parseInt(anderCal.toString())
 
         val verbruik =
             Verbruik(
@@ -126,9 +169,9 @@ val anderName = args.currentAnder.name
                 aantalWestmalleVoorDatabase,
                 aantalKwakVoorDatabase,
                 aantalAnderVoorDatabase,
-                "ander",
-                0,
-                0,
+                naamAnderVoorDatabase,
+                inhoudAnderVoorDatabase.toInt(),
+                calAnderVoorDatabase,
                 0
 
             )
