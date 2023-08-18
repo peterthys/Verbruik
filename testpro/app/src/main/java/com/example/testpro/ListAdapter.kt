@@ -31,13 +31,13 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        var resultaat = 0
+        var resultaat = 0.0
         val currentVerbruik = verbruiksList[position]
         holder.itemView.findViewById<TextView>(R.id.tv_datum).text = currentVerbruik.datum
 
 
         val pilsVerbruik = currentVerbruik.pils
-        resultaat = resultaat + (pilsVerbruik * 108)
+        resultaat += ((pilsVerbruik * 108).toInt())
         if (pilsVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_pils).visibility = GONE
         } else {
@@ -80,15 +80,17 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
 
         val anderVerbruik = currentVerbruik.anderAantal
         resultaat += (anderVerbruik * currentVerbruik.anderCalorie * currentVerbruik.anderInhoud)
-        if (anderVerbruik == 0) {
+        if (anderVerbruik == 0.0) {
             holder.itemView.findViewById<TextView>(R.id.tv_ander).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_ander).text =
                 "${currentVerbruik.anderNaam} : $anderVerbruik"
 
 
+
+       val integerResulaat = resultaat.toInt()
         holder.itemView.findViewById<TextView>(R.id.tv_resultaat).text =
-            "$resultaat kcal"
+            "$integerResulaat kcal"
 
         holder.itemView.findViewById<ConstraintLayout>(R.id.rowLayout).setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentVerbruik)
