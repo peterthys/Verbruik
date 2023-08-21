@@ -75,11 +75,9 @@ class AddFragment : Fragment() {
             anderCal.visibility = View.VISIBLE
             anderAantal.visibility = View.VISIBLE
 
-//            findNavController().navigate(R.id.action_addFragment_to_anderFragment)
         }
 
 
-        //   inhoudAnderVoorDatabase = 1.2
         anderGlas?.setOnClickListener {
 
             inhoudAnderVoorDatabase = 1.2
@@ -101,7 +99,7 @@ class AddFragment : Fragment() {
         var aantalWijnVoorDatabase = 0
         var aantalWestmalleVoorDatabase = 0
         var aantalKwakVoorDatabase = 0
-        var aantalAnderVoorDatabase = 0.0
+        var aantalAnderVoorDatabase = 0
         var naamAnderVoorDatabase = ""
 
         var calAnderVoorDatabase = 0
@@ -142,9 +140,9 @@ class AddFragment : Fragment() {
 
         var aantalAnder = view?.findViewById<EditText>(R.id.addAnder_aantal)?.text.toString()
         if (TextUtils.isEmpty(aantalAnder)) {
-            aantalAnderVoorDatabase = 0.0
+            aantalAnderVoorDatabase = 0
         } else
-            aantalAnderVoorDatabase = Integer.parseInt(aantalAnder.toString()).toDouble()
+            aantalAnderVoorDatabase = Integer.parseInt(aantalAnder.toString())
 
         var naamAnder = view?.findViewById<EditText>(R.id.addAnder_naam)?.text.toString()
         if (TextUtils.isEmpty(naamAnder)) {
@@ -152,22 +150,6 @@ class AddFragment : Fragment() {
         } else
             naamAnderVoorDatabase = naamAnder
 
-//        val anderGlas = view?.findViewById<Button>(R.id.addAnder_glas_button)
-//        val andercl25 = view?.findViewById<Button>(R.id.addAnder_cl25_button)
-//        val andercl33 = view?.findViewById<Button>(R.id.addAnder_cl33_button)
-//
-//     //   inhoudAnderVoorDatabase = 1.2
-//        anderGlas?.setOnClickListener {
-//
-//            inhoudAnderVoorDatabase = 1.2
-//            Toast.makeText(requireContext(), "glas gedrukt !", Toast.LENGTH_LONG).show()
-//        }
-//        andercl25?.setOnClickListener {
-//            inhoudAnderVoorDatabase = 2.5
-//        }
-//        andercl33?.setOnClickListener {
-//            inhoudAnderVoorDatabase = 3.3
-//        }
 
         var anderCal = view?.findViewById<EditText>(R.id.addAnder_cal)?.text.toString()
         if (TextUtils.isEmpty(anderCal)) {
@@ -188,11 +170,22 @@ class AddFragment : Fragment() {
                 inhoudAnderVoorDatabase,
                 calAnderVoorDatabase,
                 0
-
             )
+        if (!(aantalPilsVoorDatabase == 0 || aantalDuvelVoorDatabase == 0 || aantalWijnVoorDatabase == 0 || aantalWestmalleVoorDatabase == 0 || aantalKwakVoorDatabase == 0 || (aantalAnderVoorDatabase == 0 && naamAnderVoorDatabase == "" && inhoudAnderVoorDatabase == 0.0 && calAnderVoorDatabase == 0))) {
+
+
 
         mVerbruikViewModel.addVerbruik(verbruik)
         Toast.makeText(requireContext(), "Succesfully added !", Toast.LENGTH_LONG).show()
+    }
+        else {
+            Toast.makeText(
+                requireContext(),
+                "Alles is leeg, vul tenminste één drankverbruik in !",
+                Toast.LENGTH_LONG
+            ).show()
+
+        }
     }
 
 

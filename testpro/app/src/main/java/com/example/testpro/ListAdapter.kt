@@ -80,7 +80,7 @@ class ListAdapter : Adapter<ListAdapter.MyViewHolder>() {
 
         val anderVerbruik = currentVerbruik.anderAantal
         resultaat += (anderVerbruik * currentVerbruik.anderCalorie * currentVerbruik.anderInhoud)
-        if (anderVerbruik == 0.0) {
+        if (anderVerbruik == 0) {
             holder.itemView.findViewById<TextView>(R.id.tv_ander).visibility = GONE
         } else
             holder.itemView.findViewById<TextView>(R.id.tv_ander).text =

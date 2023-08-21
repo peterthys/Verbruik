@@ -101,7 +101,7 @@ class UpdateFragment : Fragment() {
         val aantalAnderFound =
             view?.findViewById<EditText>(R.id.updateAnder)?.text.toString()
         if (!TextUtils.isEmpty(aantalAnderFound)) {
-            currentVerbruik.anderAantal = aantalAnderFound.toDouble()
+            currentVerbruik.anderAantal = aantalAnderFound.toInt()
         }
 
 

@@ -14,7 +14,7 @@ data class Verbruik(
     var wijn: Int = 0,
     var westmalle: Int = 0,
     var kwak: Int = 0,
-    var anderAantal: Double = 0.0,
+    var anderAantal: Int = 0,
     var anderNaam: String ="",
     var anderInhoud: Double = 0.0,
     var anderCalorie: Int = 0,
