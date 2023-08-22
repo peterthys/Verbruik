@@ -62,8 +62,10 @@ class AddFragment : Fragment() {
 
         val btn = view.findViewById<Button>(R.id.add_button)
         btn.setOnClickListener {
-            addVerbruikToDatabase(dateTime)
-            findNavController().navigate(R.id.action_addFragment_to_listFragment)
+            if (addVerbruikToDatabase(dateTime)){
+                findNavController().navigate(R.id.action_addFragment_to_listFragment)
+            }
+
         }
         val anderView = view.findViewById<TextView>(R.id.addAnder)
         anderView.setOnClickListener {
@@ -85,15 +87,17 @@ class AddFragment : Fragment() {
         }
         andercl25?.setOnClickListener {
             inhoudAnderVoorDatabase = 2.5
+            Toast.makeText(requireContext(), "25cl gedrukt !", Toast.LENGTH_LONG).show()
         }
         andercl33?.setOnClickListener {
             inhoudAnderVoorDatabase = 3.3
+            Toast.makeText(requireContext(), "33cl gedrukt !", Toast.LENGTH_LONG).show()
         }
 
         return view
     }
 
-    private fun addVerbruikToDatabase(verbruiksDatum: String) {
+    private fun addVerbruikToDatabase(verbruiksDatum: String): Boolean {
         var aantalPilsVoorDatabase = 0
         var aantalDuvelVoorDatabase = 0
         var aantalWijnVoorDatabase = 0
@@ -186,13 +190,15 @@ class AddFragment : Fragment() {
                 "Alles is leeg, vul tenminste één drankverbruik in !",
                 Toast.LENGTH_LONG
             ).show()
+            return false
+        }
 
-        } else {
+        else {
 
             mVerbruikViewModel.addVerbruik(verbruik)
             Toast.makeText(requireContext(), "Succesfully added !", Toast.LENGTH_LONG).show()
         }
-
+        return true
     }
 
 
