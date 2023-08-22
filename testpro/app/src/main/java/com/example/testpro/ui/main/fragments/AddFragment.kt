@@ -171,21 +171,28 @@ class AddFragment : Fragment() {
                 calAnderVoorDatabase,
                 0
             )
-        if (!(aantalPilsVoorDatabase == 0 || aantalDuvelVoorDatabase == 0 || aantalWijnVoorDatabase == 0 || aantalWestmalleVoorDatabase == 0 || aantalKwakVoorDatabase == 0 || (aantalAnderVoorDatabase == 0 && naamAnderVoorDatabase == "" && inhoudAnderVoorDatabase == 0.0 && calAnderVoorDatabase == 0))) {
+        if (aantalPilsVoorDatabase == 0
+                    && aantalDuvelVoorDatabase == 0
+                    && aantalWijnVoorDatabase == 0
+                    && aantalWestmalleVoorDatabase == 0
+                    && aantalKwakVoorDatabase == 0
+                    && aantalAnderVoorDatabase == 0
+                    && naamAnderVoorDatabase == ""
+                    && inhoudAnderVoorDatabase == 0.0
+                    && calAnderVoorDatabase == 0) {
 
-
-
-        mVerbruikViewModel.addVerbruik(verbruik)
-        Toast.makeText(requireContext(), "Succesfully added !", Toast.LENGTH_LONG).show()
-    }
-        else {
             Toast.makeText(
                 requireContext(),
                 "Alles is leeg, vul tenminste één drankverbruik in !",
                 Toast.LENGTH_LONG
             ).show()
 
+        } else {
+
+            mVerbruikViewModel.addVerbruik(verbruik)
+            Toast.makeText(requireContext(), "Succesfully added !", Toast.LENGTH_LONG).show()
         }
+
     }
 
 
